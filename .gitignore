@@ -351,3 +351,4 @@ MigrationBackup/
 
 configuration.local.json
 /src/Api/output
+/src/WebUI/output
