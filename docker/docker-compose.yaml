@@ -3,7 +3,7 @@ version: "3.9"
 services:
   ambient-weather:
     container_name: ambient-weather-server
-    image: philosowaffle/ambient-weather-server:api-latest
+    image: philosowaffle/ambientweather-local-server:api-latest
     ports:
       - 8001:80
     environment:
@@ -15,7 +15,7 @@ services:
 
   ambient-weather-webui:
     container_name: ambient-weather-webui
-    image: philosowaffle/ambient-weather-server:webui-latest
+    image: philosowaffle/ambientweather-local-server:webui-latest
     ports:
       - 8002:80
     environment:

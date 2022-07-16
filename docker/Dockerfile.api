@@ -10,7 +10,7 @@ RUN apt-get update \
 	&& apt-get autoremove -y \
 	&& apt-get clean
 
-RUN groupadd -g 1016 awuser && useradd -g awuser -u 1016 awuser
+RUN groupadd -g 1017 awuser && useradd -g awuser -u 1017 awuser
 
 WORKDIR /app
 
