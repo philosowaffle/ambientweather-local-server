@@ -485,6 +485,7 @@ public class AmbientWeatherMetricsPostRequest
 	/// Low battry Rain Gauge
 	/// </summary>
 	public BoolEnum? BattRain { get; set; }
+	public BoolEnum? Batt_Co2 { get; set; }
 
 
 }
