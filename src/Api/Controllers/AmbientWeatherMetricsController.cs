@@ -10,7 +10,7 @@ namespace Api.Controllers;
 public class AmbientWeatherMetricsController : ControllerBase
 {
 	private readonly IEnumerable<IMetricsHandler> _metricsHandlers;
-	public AmbientWeatherMetricsController(ICollection<IMetricsHandler> metricsHandlers)
+	public AmbientWeatherMetricsController(IEnumerable<IMetricsHandler> metricsHandlers)
 	{
 		_metricsHandlers = metricsHandlers;
 	}
