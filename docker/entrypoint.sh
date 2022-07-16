@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-chown -R bt:bt /app
+chown -R awuser:awuser /app
 chmod 770 -R /app
 
 if [[ "$1" == "api" ]]; then
-    exec runuser -u bt ./Api
+    exec runuser -u awuser ./Api
 elif [[ "$1" == "webui" ]]; then
-    exec runuser -u bt ./WebUI
+    exec runuser -u awuser ./WebUI
 else
    echo "Nothing to do."
 fi

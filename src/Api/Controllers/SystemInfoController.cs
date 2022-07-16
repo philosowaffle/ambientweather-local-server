@@ -43,11 +43,11 @@ public class SystemInfoController : ControllerBase
 
 			Version = Constants.AppVersion,
 
-			GitHub = "https://github.com/philosowaffle/blazor-template",
-			Documentation = "https://philosowaffle.github.io/blazor-template/",
-			Forums = "https://github.com/philosowaffle/blazor-template/discussions",
+			GitHub = "https://github.com/philosowaffle/ambientweather-local-server",
+			Documentation = "https://philosowaffle.github.io/ambientweather-local-server/",
+			Forums = "https://github.com/philosowaffle/ambientweather-local-server/discussions",
 			Donate = "https://www.buymeacoffee.com/philosowaffle",
-			Issues = "https://github.com/philosowaffle/blazor-template/issues",
+			Issues = "https://github.com/philosowaffle/ambientweather-local-server/issues",
 			Api = $"{_appConfiguration.Api.HostUrl}/swagger"
 		};
 	}

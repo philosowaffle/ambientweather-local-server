@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  bt:
-    container_name: bt
-    image: philosowaffle/bt:api-latest
+  ambient-weather:
+    container_name: ambient-weather-server
+    image: philosowaffle/ambient-weather-server:api-latest
     ports:
       - 8001:80
     environment:
@@ -13,9 +13,9 @@ services:
       - ./data:/app/data # recommended for saving settings across restarts
       - ./output:/app/output # optional, if you configure logs to write to file, they will be found here
 
-  bt-webui:
-    container_name: bt-webui
-    image: philosowaffle/bt:webui-latest
+  ambient-weather-webui:
+    container_name: ambient-weather-webui
+    image: philosowaffle/ambient-weather-server:webui-latest
     ports:
       - 8002:80
     environment:

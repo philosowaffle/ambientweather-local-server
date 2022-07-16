@@ -27,7 +27,7 @@ public static class FlurlConfiguration
 		{
 			try
 			{
-				Log.Verbose("HTTP Request: {@HttpMethod} - {@Uri} - {@Headers} - {@Content}", call.HttpRequestMessage.Method, call.HttpRequestMessage.RequestUri, call.HttpRequestMessage.Headers.ToString(), call.HttpRequestMessage.Content);
+				Log.Verbose("HTTP Request: {@HttpMethod} - {@Uri} - {@Headers} - {@Content}", call.HttpRequestMessage?.Method?.ToString() ?? "unknown", call.HttpRequestMessage?.RequestUri?.ToString() ?? "unknown", call.HttpRequestMessage?.Headers?.ToString() ?? "unknown", call.HttpRequestMessage?.Content?.ToString() ?? "unknown");
 			}
 			catch { Console.WriteLine("Error in Flurl.beforeCallAsync"); }
 
@@ -38,18 +38,21 @@ public static class FlurlConfiguration
 		{
 			try
 			{
-				Log.Verbose("HTTP Response: {@HttpStatusCode} - {@HttpMethod} - {@Uri} - {@Headers} - {@Content}", call.HttpResponseMessage?.StatusCode, call.HttpRequestMessage?.Method, call.HttpRequestMessage?.RequestUri, call.HttpResponseMessage?.Headers.ToString(), await call.HttpResponseMessage?.Content?.ReadAsStringAsync());
+				var responseContent = "unknown";
+				if (call.HttpResponseMessage?.Content is not null)
+					responseContent = await call.HttpResponseMessage.Content.ReadAsStringAsync();
+				Log.Verbose("HTTP Response: {@HttpStatusCode} - {@HttpMethod} - {@Uri} - {@Headers} - {@Content}", call.HttpResponseMessage?.StatusCode.ToString() ?? string.Empty, call.HttpRequestMessage?.Method?.ToString() ?? "unknown", call.HttpRequestMessage?.RequestUri?.ToString() ?? "unknown", call.HttpResponseMessage?.Headers?.ToString() ?? "unknown", responseContent);
 
 				if (config.Metrics.Enabled)
 				{
 					HttpRequestHistogram
 					.WithLabels(
-						call.HttpRequestMessage.Method.ToString(),
-						call.HttpRequestMessage.RequestUri.Host,
-						call.HttpRequestMessage.RequestUri.AbsolutePath,
-						call.HttpRequestMessage.RequestUri.Query,
-						((int)call.HttpResponseMessage.StatusCode).ToString(),
-						call.HttpResponseMessage.ReasonPhrase
+						call.HttpRequestMessage?.Method.ToString() ?? "unknown",
+						call.HttpRequestMessage?.RequestUri?.Host ?? "unknown",
+						call.HttpRequestMessage?.RequestUri?.AbsolutePath ?? "unknown",
+						call.HttpRequestMessage?.RequestUri?.Query ?? "unknown",
+						((int?)call.HttpResponseMessage?.StatusCode).ToString() ?? "unknown",
+						call.HttpResponseMessage?.ReasonPhrase ?? "unknown"
 					).Observe(call.Duration.GetValueOrDefault().TotalSeconds);
 				}
 			}

@@ -30,7 +30,7 @@
             "labels": [
               {
                 "key": "container_name",
-                "value": "bt-webui"
+                "value": "ambientweather-webui"
               }
             ]
           }

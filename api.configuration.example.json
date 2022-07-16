@@ -34,7 +34,7 @@
             "labels": [
               {
                 "key": "container_name",
-                "value": "bt-api"
+                "value": "ambientweather-api"
               }
             ]
           }
