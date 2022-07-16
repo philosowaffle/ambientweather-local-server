@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  bt:
+    container_name: bt
+    image: philosowaffle/bt:api-latest
+    ports:
+      - 8001:80
+    environment:
+      - TZ=America/Chicago
+    volumes:
+      - ./api.configuration.local.json:/app/configuration.local.json
+      - ./data:/app/data # recommended for saving settings across restarts
+      - ./output:/app/output # optional, if you configure logs to write to file, they will be found here
+
+  bt-webui:
+    container_name: bt-webui
+    image: philosowaffle/bt:webui-latest
+    ports:
+      - 8002:80
+    environment:
+      - TZ=America/Chicago
+    volumes:
+      - ./webui.configuration.local.json:/app/configuration.local.json

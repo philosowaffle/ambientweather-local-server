@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>WebUI</PageTitle>
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudLink Href="/"><MudText Typo="Typo.h5" Class="ml-3">monica-tools</MudText></MudLink>
+        <MudSpacer />
+        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Class="ma-4" T="bool"
+            Icon="@Icons.Outlined.DarkMode" Title="Dark Mode" Color="Color.Primary"
+            ToggledIcon="@Icons.Outlined.LightMode" ToggledTitle="Light Mode" ToggledColor="Color.Primary" />
+        <MudIconButton Icon="@Icons.Outlined.Info" Color="Color.Inherit" Edge="Edge.End" Title="About" Href="/about"/>
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code{
+    private MudTheme _theme = new();
+    private bool _isDarkMode = true;
+}

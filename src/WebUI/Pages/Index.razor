@@ -1,0 +1,75 @@
+﻿@page "/"
+@inject IApiClient _apiClient
+@inject ISnackbar Snackbar
+
+<PageTitle>Settings</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge">
+    <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+        <MudGrid Justify="Justify.FlexStart">
+                <MudItem xs="4">
+                    <MudPaper d-flex flex-column align-center justify-center mud-width-full py-6>
+                    </MudPaper>
+                </MudItem>
+                <MudItem>
+                    <MudPaper Class="pa-4 mt-4">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(async ()=>await SaveAsync())">Save</MudButton>
+                    </MudPaper>
+                </MudItem>
+        </MudGrid>
+    </MudForm>
+</MudContainer>
+
+@code {
+    private bool success;
+    private string[] errors = { };
+    private MudTextField<string> pwField1;
+    private MudForm form;
+
+    private SettingsGetResponse _settings;
+
+    public Index() : base()
+    {
+        _settings = new SettingsGetResponse();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _settings = await _apiClient.SettingsGetAsync();
+    }
+
+    protected async Task SaveAsync()
+    {
+        var isValid = form.IsValid;
+        if (!isValid)
+        {
+            Toast(form.Errors, Severity.Error);
+            return;
+        }
+
+        try
+        {
+            var updatedSettings = await _apiClient.SettingsPostAsync(_settings);
+
+            if (updatedSettings is object)
+                _settings = updatedSettings;
+        } catch (Exception e)
+        {
+            Log.Error(e, "Failed to save settings.");
+            Toast("Failed to save settings", Severity.Error);
+        }
+    }
+
+    private void Toast(ICollection<string> messages, Severity severity)
+    {
+        foreach(var m in messages)
+        {
+            Snackbar.Add(m, severity);
+        }
+    }
+
+    private void Toast(string message, Severity severity)
+    {
+        Snackbar.Add(message, severity);
+    }
+}

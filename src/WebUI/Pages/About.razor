@@ -1,0 +1,55 @@
+﻿@page "/about"
+@inject IApiClient _apiClient
+
+<PageTitle>About</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="4">
+            <MudPaper d-flex flex-column align-center justify-center mud-width-full py-6>
+                <MudList Clickable="false">
+                    <MudListItem Icon="@Icons.Material.Filled.AltRoute">
+                        <MudText><b>Version: </b>@systemInfo.Version </MudText> 
+                    </MudListItem> 
+                    <MudDivider />
+                    <MudListItem Icon="@Icons.Material.Filled.Computer"> 
+                        <MudText><b>OS: </b>@systemInfo.OperatingSystem</MudText> 
+                    </MudListItem> 
+                    <MudListItem Icon="@Icons.Material.Filled.AltRoute"> 
+                        <MudText><b>OS Version: </b>@systemInfo.OperatingSystemVersion</MudText> 
+                    </MudListItem> 
+                    <MudDivider />
+                    <MudListItem Icon="@Icons.Material.Filled.AltRoute"> 
+                        <MudText><b>Runtime Version: </b>@systemInfo.RunTimeVersion</MudText> 
+                    </MudListItem> 
+                </MudList>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="2">
+            <MudPaper d-flex flex-column align-center justify-center mud-width-full py-6>
+                <MudList Clickable="true">
+                    <MudListItem Text="Api" Href="@systemInfo.Api" />
+                    <MudListItem Text="GitHub" Href="@systemInfo.GitHub" />
+                    <MudListItem Text="Documentation" Href="@systemInfo.Documentation" />
+                    <MudListItem Text="Forums" Href="@systemInfo.Forums" />
+                    <MudListItem Text="Report an Issue" Href="@systemInfo.Issues" />
+                    <MudListItem Text="Donate" Href="@systemInfo.Donate" />
+                </MudList>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private SystemInfoGetResponse systemInfo;
+
+    public About() : base()
+    {
+        systemInfo = new SystemInfoGetResponse();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        systemInfo = await _apiClient.SystemInfoGetAsync();
+    }
+}
