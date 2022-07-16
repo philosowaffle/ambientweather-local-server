@@ -1,7 +1,7 @@
 ﻿using Common;
 using Common.Observe;
 using Core.MetricsHandlers;
-using Core.MetricsHandlers.Prometheus;
+using Core.MetricsHandlers.PrometheusMetrics;
 using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Prometheus;

@@ -2,7 +2,7 @@
 
 public static class Label
 {
-    public static string LabelPrefix = "bt";
+    public static string LabelPrefix = "ambientweather";
 
 	// SYSTEM
 	public static string BuildInfo = $"{LabelPrefix}_build_info";

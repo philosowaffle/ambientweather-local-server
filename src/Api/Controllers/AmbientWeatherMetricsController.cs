@@ -28,4 +28,14 @@ public class AmbientWeatherMetricsController : ControllerBase
 
 		return Task.WhenAll(tasks);
 	}
+
+	[HttpGet]
+	public Task GetAsync([FromQuery] AmbientWeatherMetricsPostRequest request)
+	{
+		var tasks = new List<Task>(_metricsHandlers.Count);
+		foreach (var handler in _metricsHandlers)
+			tasks.Add(handler.ProcessAsync(request));
+
+		return Task.WhenAll(tasks);
+	}
 }
