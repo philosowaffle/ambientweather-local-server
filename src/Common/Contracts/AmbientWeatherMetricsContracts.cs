@@ -8,13 +8,13 @@ public class AmbientWeatherMetricsPostRequest
 	/// <summary>
 	/// Mac Address of the weather console
 	/// </summary>
-	public string Mac { get; set; }
+	public string? Mac { get; set; }
 
 	/// <summary>
 	/// AmbientWeather System Type
 	/// </summary>
-	public string Type { get; set; }
-	public string PassKey { get; set; }
+	public string? StationType { get; set; }
+	public string? PassKey { get; set; }
 	public DateTime DateUtc { get; set; }
 	/// <summary>
 	/// 0-360º instantaneous wind direction
@@ -227,16 +227,16 @@ public class AmbientWeatherMetricsPostRequest
 	/// Indoor PM sensor humidity - %
 	/// </summary>
 	public int? PM_In_Humidity { get; set; }
-	public bool? Relay1 { get; set; }
-	public bool? Relay2 { get; set; }
-	public bool ?Relay3 { get; set; }
-	public bool? Relay4 { get; set; }
-	public bool? Relay5 { get; set; }
-	public bool? Relay6 { get; set; }
-	public bool? Relay7 { get; set; }
-	public bool? Relay8 { get; set; }
-	public bool? Relay9 { get; set; }
-	public bool? Relay10 { get; set; }
+	public BoolEnum? Relay1 { get; set; }
+	public BoolEnum? Relay2 { get; set; }
+	public BoolEnum? Relay3 { get; set; }
+	public BoolEnum? Relay4 { get; set; }
+	public BoolEnum? Relay5 { get; set; }
+	public BoolEnum? Relay6 { get; set; }
+	public BoolEnum? Relay7 { get; set; }
+	public BoolEnum? Relay8 { get; set; }
+	public BoolEnum? Relay9 { get; set; }
+	public BoolEnum? Relay10 { get; set; }
 	/// <summary>
 	/// F
 	/// </summary>
@@ -345,146 +345,146 @@ public class AmbientWeatherMetricsPostRequest
 	/// <summary>
 	/// Distance of last strike - km
 	/// </summary>
-	public float? Lightning_Distance { get; set; }
-	public bool? LowBattery { get; set; }
-	public bool? NormalBattery { get; set; }
+	public BoolEnum? Lightning_Distance { get; set; }
+	public BoolEnum? LowBattery { get; set; }
+	public BoolEnum? NormalBattery { get; set; }
 	/// <summary>
 	/// Low battery indication, outdoor sensor array or suite
 	/// </summary>
-	public bool? BattOut { get; set; }
+	public BoolEnum? BattOut { get; set; }
 	/// <summary>
 	/// Low battery indication, indoor sensor or console
 	/// </summary>
-	public bool? BattIn { get; set; }
+	public BoolEnum? BattIn { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt1 { get; set; }
+	public BoolEnum? Batt1 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt2 { get; set; }
+	public BoolEnum? Batt2 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt3 { get; set; }
+	public BoolEnum? Batt3 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt4 { get; set; }
+	public BoolEnum? Batt4 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt5 { get; set; }
+	public BoolEnum? Batt5 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt6 { get; set; }
+	public BoolEnum? Batt6 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt7 { get; set; }
+	public BoolEnum? Batt7 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt8 { get; set; }
+	public BoolEnum? Batt8 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt9 { get; set; }
+	public BoolEnum? Batt9 { get; set; }
 	/// <summary>
 	/// Low battery indication
 	/// </summary>
-	public bool? Batt10 { get; set; }
+	public BoolEnum? Batt10 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR1 { get; set; }
+	public BoolEnum? BattR1 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR2 { get; set; }
+	public BoolEnum? BattR2 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR3 { get; set; }
+	public BoolEnum? BattR3 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR4 { get; set; }
+	public BoolEnum? BattR4 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR5 { get; set; }
+	public BoolEnum? BattR5 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR6 { get; set; }
+	public BoolEnum? BattR6 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR7 { get; set; }
+	public BoolEnum? BattR7 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR8 { get; set; }
+	public BoolEnum? BattR8 { get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR9{ get; set; }
+	public BoolEnum? BattR9{ get; set; }
 	/// <summary>
 	/// Low battery relay indication
 	/// </summary>
-	public bool? BattR10 { get; set; }
+	public BoolEnum? BattR10 { get; set; }
 	/// <summary>
 	/// Low battery indication, PM2.5
 	/// </summary>
-	public bool? Batt_25 { get; set; }
+	public BoolEnum? Batt_25 { get; set; }
 	/// <summary>
 	/// Low battery indication, PM2.5 indoor
 	/// </summary>
-	public bool? Batt_25In { get; set; }
+	public BoolEnum? Batt_25In { get; set; }
 	/// <summary>
 	/// Low battery leak detection
 	/// </summary>
-	public bool? BatLeak1 { get; set; }
+	public BoolEnum? BatLeak1 { get; set; }
 	/// <summary>
 	/// Low battery leak detection
 	/// </summary>
-	public bool? BatLeak2 { get; set; }
+	public BoolEnum? BatLeak2 { get; set; }
 	/// <summary>
 	/// Low battery leak detection
 	/// </summary>
-	public bool? BatLeak3 { get; set; }
+	public BoolEnum? BatLeak3 { get; set; }
 	/// <summary>
 	/// Low battery leak detection
 	/// </summary>
-	public bool? BatLeak4 { get; set; }
+	public BoolEnum? BatLeak4 { get; set; }
 	/// <summary>
 	/// Low battery lighting sensor
 	/// </summary>
-	public bool? Batt_Lightning { get; set; }
+	public BoolEnum? Batt_Lightning { get; set; }
 	/// <summary>
 	/// Low battery Soil Moisture
 	/// </summary>
-	public bool? BattSM1 { get; set; }
+	public BoolEnum? BattSM1 { get; set; }
 	/// <summary>
 	/// Low battery Soil Moisture
 	/// </summary>
-	public bool? BattSM2 { get; set; }
+	public BoolEnum? BattSM2 { get; set; }
 	/// <summary>
 	/// Low battery Soil Moisture
 	/// </summary>
-	public bool? BattSM3 { get; set; }
+	public BoolEnum? BattSM3 { get; set; }
 
 	/// <summary>
 	/// Low battery Soil Moisture
 	/// </summary>
-	public bool? BattSM4 { get; set; }
+	public BoolEnum? BattSM4 { get; set; }
 	/// <summary>
 	/// Low battry Rain Gauge
 	/// </summary>
-	public bool? BattRain { get; set; }
+	public BoolEnum? BattRain { get; set; }
 
 
 }
@@ -494,4 +494,10 @@ public enum LeakSensorState
 	NoLeak = 0,
 	Leak = 1,
 	LossOfCommunication = 2, // for over 10 minutes
+}
+
+public enum BoolEnum
+{
+	False = 0,
+	True = 1
 }
