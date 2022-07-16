@@ -9,6 +9,12 @@ public class AmbientWeatherMetricsPostRequest
 	/// Mac Address of the weather console
 	/// </summary>
 	public string Mac { get; set; }
+
+	/// <summary>
+	/// AmbientWeather System Type
+	/// </summary>
+	public string Type { get; set; }
+	public string PassKey { get; set; }
 	public DateTime DateUtc { get; set; }
 	/// <summary>
 	/// 0-360º instantaneous wind direction

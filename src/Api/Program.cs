@@ -65,7 +65,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 // HANDLERS
-builder.Services.AddScoped<IMetricsHandler, PrometheusHandler>();
+builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
 
 // SETTINGS
 builder.Services.AddSingleton<ISettingsService, SettingsService>();
