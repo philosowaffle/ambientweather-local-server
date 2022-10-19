@@ -6,6 +6,8 @@ public static class ConfigurationSetup
 {
 	public static void LoadConfigValues(IConfiguration provider, AppConfiguration config)
 	{
+		provider.GetSection("Api").Bind(config.Api);
+		provider.GetSection("WebUI").Bind(config.WebUI);
 		provider.GetSection(nameof(Observability)).Bind(config.Observability);
 		provider.GetSection(nameof(Developer)).Bind(config.Developer);
 	}
@@ -14,43 +16,45 @@ public static class ConfigurationSetup
 /// <summary>
 /// Configuration that must be provided prior to runtime. Typically via config file, command line args, or env variables.
 /// </summary>
-public class AppConfiguration
+public struct AppConfiguration
 {
 	public AppConfiguration()
 	{
 		Api = new ApiSettings();
+		WebUI = new WebUISettings();
 		Observability = new Observability();
 		Developer = new Developer();
 	}
 
 	public ApiSettings Api { get; set; }
+	public WebUISettings WebUI { get; set; }
 	public Observability Observability { get; set; }
 	public Developer Developer { get; set; }
 
 	public static string DataDirectory = Path.Join(Environment.CurrentDirectory, "data");
 }
 
-public class ApiSettings
+public struct ApiSettings
 {
 	public ApiSettings()
 	{
-		HostUrl = "http://localhost";
+		HostUrl = "http://*:8080";
 	}
 
 	public string HostUrl { get; set; }
 }
 
-public class WebUISettings
+public struct WebUISettings
 {
 	public WebUISettings()
 	{
-		HostUrl = "http://localhost:8020";
+		HostUrl = "http://*:8080";
 	}
 
 	public string HostUrl { get; set; }
 }
 
-public class Observability
+public struct Observability
 {
 	public Observability()
 	{
@@ -62,18 +66,18 @@ public class Observability
 	public Traces Traces { get; set; }
 }
 
-public class Traces
+public struct Traces
 {
 	public bool Enabled { get; set; }
 	public string AgentHost { get; set; }
 	public int? AgentPort { get; set; }
 }
 
-public class Metrics
+public struct Metrics
 {
 	public bool Enabled { get; set; }
 }
 
-public class Developer
+public struct Developer
 {
 }

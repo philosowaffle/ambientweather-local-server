@@ -2,7 +2,7 @@
 
 namespace Core.Settings;
 
-public record Settings
+public record struct Settings
 {
 	public AppSettings AppSettings { get; set; }
 
@@ -22,7 +22,7 @@ public record Settings
 	}
 }
 
-public record AppSettings
+public record struct AppSettings
 {
 	public AppSettings() { }
 

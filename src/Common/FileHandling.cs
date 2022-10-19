@@ -11,8 +11,8 @@ public interface IIoWrapper
 	bool DirExists(string path);
 	string[] GetFiles(string path);
 
-	T DeserializeJson<T>(string file);
-	bool TryDeserializeXml<T>(string file, out T result) where T : new();
+	T? DeserializeJson<T>(string file);
+	bool TryDeserializeXml<T>(string file, out T? result) where T : new();
 	void MoveFailedFile(string fromPath, string toPath);
 	void Copy(string from, string to, bool overwrite);
 	bool WriteToFile(string path, string content);
@@ -54,7 +54,7 @@ public class IoWrapper : IIoWrapper
 		return files;
 	}
 
-	public T DeserializeJson<T>(string file)
+	public T? DeserializeJson<T>(string file)
 	{
 		using var trace1 = Tracing.Trace(nameof(DeserializeJson))
 									.WithTag("path", file);
@@ -65,9 +65,10 @@ public class IoWrapper : IIoWrapper
 		}
 	}
 
-	public bool TryDeserializeXml<T>(string file, out T result) where T : new()
+	public bool TryDeserializeXml<T>(string file, out T? result) 
+		where T : new()
 	{
-		result = default;
+		result = new T();
 
 		using var trace = Tracing.Trace(nameof(TryDeserializeXml))
 									.WithTag("path", file);
@@ -78,7 +79,7 @@ public class IoWrapper : IIoWrapper
 		{
 			try
 			{
-				result = (T)serializer.Deserialize(stream);
+				result = (T?)serializer.Deserialize(stream);
 				return true;
 			}
 			catch (Exception e)

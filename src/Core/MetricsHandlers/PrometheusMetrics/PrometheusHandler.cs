@@ -355,7 +355,7 @@ public class PrometheusHandler : IMetricsHandler
 			AmbientWeatherPrometheusMetrics
 				.WindDirection
 				.WithLabels("10mAvg")
-				.Set(metrics.WindDir.Value);
+				.Set(metrics.WindDir_Avg10m.Value);
 		}
 	}
 

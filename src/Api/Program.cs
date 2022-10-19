@@ -13,22 +13,22 @@ using System.Reflection;
 ///////////////////////////////////////////////////////////
 /// STATICS
 ///////////////////////////////////////////////////////////
-Label.LabelPrefix = Constants.ApiName;
+Statics.AppType = Constants.ApiName;
+Statics.MetricPrefix = Constants.ApiName;
+Statics.TracingService = Constants.ApiName;
 
 ///////////////////////////////////////////////////////////
 /// HOST
 ///////////////////////////////////////////////////////////
 var builder = WebApplication.CreateBuilder(args);
 
-var configProvider = builder.Configuration.AddJsonFile(Path.Join(Environment.CurrentDirectory, "configuration.local.json"), optional: true, reloadOnChange: true)
-				.AddEnvironmentVariables(prefix: Constants.EnvironmentVariablePrefix)
-				.AddCommandLine(args)
-				.Build();
+builder.Configuration
+	.AddJsonFile(Path.Join(Environment.CurrentDirectory, "configuration.local.json"), optional: true, reloadOnChange: true)
+	.AddEnvironmentVariables(prefix: Constants.EnvironmentVariablePrefix)
+	.AddCommandLine(args);
 
 var config = new AppConfiguration();
-builder.Configuration.GetSection("Api").Bind(config.Api);
-builder.Configuration.GetSection(nameof(Observability)).Bind(config.Observability);
-builder.Configuration.GetSection(nameof(Developer)).Bind(config.Developer);
+ConfigurationSetup.LoadConfigValues(builder.Configuration, config);
 
 builder.WebHost.UseUrls(config.Api.HostUrl);
 
@@ -43,22 +43,19 @@ builder.Host.UseSerilog((ctx, logConfig) =>
 ///////////////////////////////////////////////////////////
 /// SERVICES
 ///////////////////////////////////////////////////////////
-
-Log.Logger = new LoggerConfiguration()
-				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")
-				.Enrich.FromLogContext()
-				.CreateLogger();
-
-FlurlConfiguration.Configure(config.Observability);
-Tracing.EnableTracing(builder.Services, config.Observability.Traces);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = $"{Constants.ApiName}", Version = "v1" });
-	var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-	c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+	var executingAssembly = Assembly.GetExecutingAssembly();
+	var referencedAssemblies = executingAssembly.GetReferencedAssemblies();
+	var docPaths = referencedAssemblies
+					.Union(new AssemblyName[] { executingAssembly.GetName() })
+					.Select(a => Path.Combine(AppContext.BaseDirectory, $"{a.Name}.xml"))
+					.Where(f => File.Exists(f)).ToArray();
+	foreach (var docPath in docPaths)
+		c.IncludeXmlComments(docPath);
 });
 
 // CACHE
@@ -74,35 +71,26 @@ builder.Services.AddSingleton<ISettingsDb, SettingsDb>();
 
 // IO & CONFIG
 builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
-builder.Services.AddSingleton<AppConfiguration>((serviceProvider) =>
-{
-	var config = new AppConfiguration();
-	builder.Configuration.GetSection("Api").Bind(config.Api);
-	builder.Configuration.GetSection(nameof(Observability)).Bind(config.Observability);
-	builder.Configuration.GetSection(nameof(Developer)).Bind(config.Developer);
-	return config;
-});
 
-var runtimeVersion = Environment.Version.ToString();
-var os = Environment.OSVersion.Platform.ToString();
-var osVersion = Environment.OSVersion.VersionString;
-var version = Constants.AppVersion;
+FlurlConfiguration.Configure(config.Observability);
+Tracing.EnableApiTracing(builder.Services, config.Observability.Traces);
 
-Prometheus.Metrics.CreateGauge(Label.BuildInfo, "Build info for the running instance.", new GaugeConfiguration()
-{
-	LabelNames = new[] { Label.Version, Label.Os, Label.OsVersion, Label.DotNetRuntime }
-}).WithLabels(version, os, osVersion, runtimeVersion)
-.Set(1);
+Log.Logger = new LoggerConfiguration()
+				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")
+				.Enrich.FromLogContext()
+				.CreateLogger();
 
-Log.Debug("Api Version: {@Version}", version);
-Log.Debug("Operating System: {@Os}", osVersion);
-Log.Debug("DotNet Runtime: {@DotnetRuntime}", runtimeVersion);
+Logging.LogSystemInformation();
+Common.Observe.Metrics.CreateAppInfo();
 
 ///////////////////////////////////////////////////////////
 /// APP
 ///////////////////////////////////////////////////////////
 
 var app = builder.Build();
+
+// Setup initial Tracing Source
+Tracing.Source = new(Statics.TracingService);
 
 app.UseCors(options =>
 {
@@ -119,7 +107,6 @@ if (Log.IsEnabled(LogEventLevel.Verbose))
 
 app.Use(async (context, next) =>
 {
-	using var tracing = Tracing.Trace($"{nameof(Program)}.Entrypoint");
 	await next.Invoke();
 });
 

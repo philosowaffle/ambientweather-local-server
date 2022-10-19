@@ -37,7 +37,7 @@ public class SettingsCache : ISettingsCache
 		{
 			return _cache.GetOrCreateAsync(KEY, cacheEntry =>
 			{
-				tracing.AddTag("cache", "miss");
+				tracing.WithTag("cache", "miss");
 				cacheEntry.SetPriority(CacheItemPriority.NeverRemove);
 				return _database.GetAsync();
 			});
@@ -63,7 +63,7 @@ public class SettingsCache : ISettingsCache
 				catch (Exception e)
 				{
 					_logger.Error("Failed to update Settings mem cache. Clearing cache.", e);
-					tracing.SetStatus(System.Diagnostics.ActivityStatusCode.Error);
+					tracing?.SetStatus(System.Diagnostics.ActivityStatusCode.Error);
 				}
 				finally
 				{

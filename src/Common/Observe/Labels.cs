@@ -2,7 +2,7 @@
 
 public static class Label
 {
-    public static string LabelPrefix = "ambientweather";
+	public static string LabelPrefix = Statics.MetricPrefix;
 
 	// SYSTEM
 	public static string BuildInfo = $"{LabelPrefix}_build_info";
@@ -10,6 +10,7 @@ public static class Label
 	public static string OsVersion = $"{LabelPrefix}_os_version";
 	public static string Version = $"{LabelPrefix}_version";
 	public static string DotNetRuntime = $"{LabelPrefix}_dotnet_runtime";
+	public static string RunningInDocker = "is_docker";
 
 	// HTTP
 	public static string HttpMethod = $"{LabelPrefix}_http_method";

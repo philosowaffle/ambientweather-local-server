@@ -3,9 +3,9 @@ version: "3.9"
 services:
   ambient-weather:
     container_name: ambient-weather-server
-    image: philosowaffle/ambientweather-local-server:api-latest
+    image: philosowaffle/ambientweather-local-server:latest
     ports:
-      - 8001:80
+      - 8001:8080
     environment:
       - TZ=America/Chicago
     volumes:
@@ -15,9 +15,10 @@ services:
 
   ambient-weather-webui:
     container_name: ambient-weather-webui
-    image: philosowaffle/ambientweather-local-server:webui-latest
+    image: philosowaffle/ambientweather-local-server:latest
+    command: webui
     ports:
-      - 8002:80
+      - 8002:8080
     environment:
       - TZ=America/Chicago
     volumes:

@@ -23,8 +23,7 @@
 @code {
     private bool success;
     private string[] errors = { };
-    private MudTextField<string> pwField1;
-    private MudForm form;
+    private MudForm? form;
 
     private SettingsGetResponse _settings;
 
@@ -40,8 +39,8 @@
 
     protected async Task SaveAsync()
     {
-        var isValid = form.IsValid;
-        if (!isValid)
+        var isValid = form?.IsValid ?? true;
+        if (!isValid && form is object)
         {
             Toast(form.Errors, Severity.Error);
             return;

@@ -38,13 +38,13 @@ public class SettingsDb : DbBase<Settings>, ISettingsDb
 		catch (KeyNotFoundException k)
 		{
 			_logger.Verbose(k, "Settings key not found in DB.");
-			tracing.SetStatus(ActivityStatusCode.Error);
+			tracing?.SetStatus(ActivityStatusCode.Error);
 			return Task.FromResult(new Settings());
 		}
 		catch (Exception e)
 		{
 			_logger.Error(e, "Failed to get Settings from db");
-			tracing.SetStatus(ActivityStatusCode.Error);
+			tracing?.SetStatus(ActivityStatusCode.Error);
 			return Task.FromResult(new Settings());
 		}
 	}
@@ -61,7 +61,7 @@ public class SettingsDb : DbBase<Settings>, ISettingsDb
 		catch (Exception e)
 		{
 			_logger.Error(e, "Failed to upsert Settings in db");
-			tracing.SetStatus(ActivityStatusCode.Error);
+			tracing?.SetStatus(ActivityStatusCode.Error);
 			return Task.FromResult(false);
 		}
 	}

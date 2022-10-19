@@ -10,8 +10,6 @@ public abstract class DbBase<T>
 
 	private IIoWrapper _fileHandler;
 
-	protected Lazy<IDocumentCollection<T>> _table;
-
 	protected readonly string DbName;
 	protected readonly string DbPath;
 
@@ -32,6 +30,10 @@ public abstract class DbBase<T>
 			try
 			{
 				var dir = Path.GetDirectoryName(path);
+
+				if (string.IsNullOrEmpty(dir))
+					throw new ArgumentNullException(dir);
+
 				_fileHandler.MkDirIfNotExists(dir);
 				File.WriteAllText(path, "{}");
 

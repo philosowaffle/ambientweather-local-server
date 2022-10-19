@@ -22,7 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5EA669
 	ProjectSection(SolutionItems) = preProject
 		..\docker\docker-compose.yaml = ..\docker\docker-compose.yaml
 		..\docker\Dockerfile.api = ..\docker\Dockerfile.api
-		..\docker\Dockerfile.webui = ..\docker\Dockerfile.webui
 		..\docker\entrypoint.sh = ..\docker\entrypoint.sh
 	EndProjectSection
 EndProject
@@ -33,6 +32,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{82BEFB00-1298-4C2C-B1DA-2261C3689EC6}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\docker_latest.yml = ..\.github\workflows\docker_latest.yml
+		..\.github\FUNDING.yml = ..\.github\FUNDING.yml
+		..\.github\workflows\jekyll-gh-pages.yml = ..\.github\workflows\jekyll-gh-pages.yml
 	EndProjectSection
 EndProject
 Global

@@ -29,7 +29,7 @@ public class SettingsController : ControllerBase
 		var settings = await _service.GetAsync();
 		var response = Map(settings);
 
-		return Ok(response);
+		return response;
 	}
 
 	/// <summary>
