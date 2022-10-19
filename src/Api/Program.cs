@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Observe;
+using Core.GitHub;
 using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
 using Microsoft.Extensions.Caching.Memory;
@@ -60,6 +61,10 @@ builder.Services.AddSwaggerGen(c =>
 // CACHE
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
+// GITHUB
+builder.Services.AddSingleton<IGitHubApiClient, ApiClient>();
+builder.Services.AddSingleton<IGitHubService, GitHubService>();
+
 // HANDLERS
 builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
 
@@ -115,5 +120,18 @@ if (config.Observability.Metrics.Enabled)
 
 app.UseAuthorization();
 app.MapControllers();
+
+var githubService = app.Services.GetService<IGitHubService>();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+var latestVersionInformation = await githubService.GetLatestReleaseAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+if (latestVersionInformation.IsReleaseNewerThanInstalledVersion)
+{
+	Log.Information("*********************************************");
+	Log.Information("A new version is available: {@Version}", latestVersionInformation.LatestVersion);
+	Log.Information("Release Date: {@ReleaseDate}", latestVersionInformation.ReleaseDate);
+	Log.Information("Release Information: {@ReleaseUrl}", latestVersionInformation.ReleaseUrl);
+	Log.Information("*********************************************");
+}
 
 await app.RunAsync();

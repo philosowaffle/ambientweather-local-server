@@ -38,3 +38,27 @@ public static class Metrics
 		return null;
 	}
 }
+
+public static class AppMetrics
+{
+	public static readonly Gauge UpdateAvailable = PromMetrics.CreateGauge($"{Statics.MetricPrefix}_update_available", "Indicates a newer version is availabe.", new GaugeConfiguration()
+	{
+		LabelNames = new[] { Label.Version, Label.LatestVersion }
+	});
+
+	public static void SyncUpdateAvailableMetric(bool isUpdateAvailable, string? latestVersion)
+	{
+		if (isUpdateAvailable)
+		{
+			UpdateAvailable
+				.WithLabels(Constants.AppVersion, latestVersion ?? string.Empty)
+				.Set(1);
+		}
+		else
+		{
+			UpdateAvailable
+				.WithLabels(Constants.AppVersion, Constants.AppVersion)
+				.Set(0);
+		}
+	}
+}

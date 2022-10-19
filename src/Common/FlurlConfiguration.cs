@@ -12,7 +12,7 @@ namespace Common;
 
 public static class FlurlConfiguration
 {
-	public static readonly Histogram HttpRequestHistogram = PromMetrics.CreateHistogram($"{Label.LabelPrefix}_http_duration_seconds", "The histogram of http requests.", new HistogramConfiguration
+	public static readonly Histogram HttpRequestHistogram = PromMetrics.CreateHistogram($"{Statics.MetricPrefix}_http_duration_seconds", "The histogram of http requests.", new HistogramConfiguration
 	{
 		LabelNames = new[]
 		{
