@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          file: ./docker/Dockerfile.api
+          file: ./docker/Dockerfile
           tags: ${{ secrets.DOCKER_USERNAME }}/ambientweather-local-server:latest
           platforms: linux/arm64,linux/amd64
           build-args: VERSION=${{ env.BUILD_VERSION }}

@@ -18,7 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5EA66922-9F42-4C51-90D5-F317C3188D93}"
 	ProjectSection(SolutionItems) = preProject
 		..\docker\docker-compose.yaml = ..\docker\docker-compose.yaml
-		..\docker\Dockerfile.api = ..\docker\Dockerfile.api
+		..\docker\Dockerfile = ..\docker\Dockerfile
 		..\docker\entrypoint.sh = ..\docker\entrypoint.sh
 	EndProjectSection
 EndProject
