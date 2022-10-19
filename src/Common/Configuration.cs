@@ -7,7 +7,6 @@ public static class ConfigurationSetup
 	public static void LoadConfigValues(IConfiguration provider, AppConfiguration config)
 	{
 		provider.GetSection("Api").Bind(config.Api);
-		provider.GetSection("WebUI").Bind(config.WebUI);
 		provider.GetSection(nameof(Observability)).Bind(config.Observability);
 		provider.GetSection(nameof(Developer)).Bind(config.Developer);
 	}
@@ -21,13 +20,11 @@ public struct AppConfiguration
 	public AppConfiguration()
 	{
 		Api = new ApiSettings();
-		WebUI = new WebUISettings();
 		Observability = new Observability();
 		Developer = new Developer();
 	}
 
 	public ApiSettings Api { get; set; }
-	public WebUISettings WebUI { get; set; }
 	public Observability Observability { get; set; }
 	public Developer Developer { get; set; }
 
@@ -37,16 +34,6 @@ public struct AppConfiguration
 public struct ApiSettings
 {
 	public ApiSettings()
-	{
-		HostUrl = "http://*:8080";
-	}
-
-	public string HostUrl { get; set; }
-}
-
-public struct WebUISettings
-{
-	public WebUISettings()
 	{
 		HostUrl = "http://*:8080";
 	}

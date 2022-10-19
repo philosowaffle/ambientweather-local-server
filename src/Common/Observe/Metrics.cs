@@ -38,11 +38,3 @@ public static class Metrics
 		return null;
 	}
 }
-
-public static class DbMetrics
-{
-	public static readonly Histogram DbActionDuration = PromMetrics.CreateHistogram(Label.DbDuration, "Counter of db actions.", new HistogramConfiguration()
-	{
-		LabelNames = new[] { Label.DbMethod, Label.DbQuery }
-	});
-}

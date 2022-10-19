@@ -32,20 +32,6 @@ public static class Tracing
 
 	}
 
-	public static void EnableWebUITracing(IServiceCollection services, Traces config)
-	{
-		if (!config.Enabled)
-			return;
-
-		services.AddOpenTelemetryTracing(
-			(builder) =>
-			{
-				builder.ConfigureDefaultBuilder(config);
-			});
-
-		Log.Information("Tracing started and exporting to: http://{@Host}:{@Port}", config.AgentHost, config.AgentPort);
-	}
-
 	private static TracerProviderBuilder ConfigureDefaultBuilder(this TracerProviderBuilder builder, Traces config)
 	{
 		return builder
@@ -78,25 +64,6 @@ public static class Tracing
 
 	public static Activity? Trace(string name, string category = "app", ActivityKind kind = ActivityKind.Server)
 	{
-		var activity = Source?.StartActivity(name, kind);
-
-		activity?
-		.SetTag("category", category)
-			.SetTag("SpanId", activity.SpanId)
-			.SetTag("TraceId", activity.TraceId);
-
-		return activity;
-	}
-
-	public static Activity? ClientTrace(string name, string category = "app", ActivityKind kind = ActivityKind.Client)
-	{
-		if (Activity.Current is null || Activity.Current.Kind != ActivityKind.Client)
-		{
-			Activity.Current?.Dispose();
-			Activity.Current = null;
-			Activity.Current = Source?.CreateActivity(name, kind);
-		}
-
 		var activity = Source?.StartActivity(name, kind);
 
 		activity?
