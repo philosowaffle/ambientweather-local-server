@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "WebUI\WebUI.csproj", "{76D9ABE5-5DE3-41B5-B3FC-728CBE93E155}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{13A6917A-A001-4C36-BBCC-13F66D52C7DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{F65B5A48-8D77-426F-9121-21733EA045AF}"
@@ -15,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{
 		..\.gitignore = ..\.gitignore
 		..\api.configuration.example.json = ..\api.configuration.example.json
 		..\README.md = ..\README.md
-		..\webui.configuration.example.json = ..\webui.configuration.example.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5EA66922-9F42-4C51-90D5-F317C3188D93}"
@@ -42,10 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{76D9ABE5-5DE3-41B5-B3FC-728CBE93E155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76D9ABE5-5DE3-41B5-B3FC-728CBE93E155}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76D9ABE5-5DE3-41B5-B3FC-728CBE93E155}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76D9ABE5-5DE3-41B5-B3FC-728CBE93E155}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13A6917A-A001-4C36-BBCC-13F66D52C7DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13A6917A-A001-4C36-BBCC-13F66D52C7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A6917A-A001-4C36-BBCC-13F66D52C7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU

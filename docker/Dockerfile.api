@@ -44,15 +44,6 @@ RUN if [[ "$TARGETPLATFORM" = "linux/arm64" ]] ; then \
 	fi
 
 ###################
-# BUILD WebUI
-###################
-RUN if [[ "$TARGETPLATFORM" = "linux/arm64" ]] ; then \
-		dotnet publish /build/src/WebUI/WebUI.csproj -c Release -r linux-arm64 -o /build/published/webui --version-suffix $VERSION ; \
-	else \
-		dotnet publish /build/src/WebUI/WebUI.csproj -c Release -r linux-x64 -o /build/published/webui --version-suffix $VERSION ; \
-	fi
-
-###################
 # FINAL
 ###################
 FROM final
@@ -60,10 +51,8 @@ FROM final
 COPY --from=build /build/LICENSE ./LICENSE
 
 COPY --from=build /build/published/api ./api
-COPY --from=build /build/published/webui ./webui
 
 COPY --from=build /build/api.configuration.example.json ./api/configuration.local.json
-COPY --from=build /build/webui.configuration.example.json ./webui/configuration.local.json
 
 COPY --chmod=770 ./docker/entrypoint.sh .
 

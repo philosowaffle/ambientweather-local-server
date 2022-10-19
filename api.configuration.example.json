@@ -1,8 +1,4 @@
 {
-  "Api": {
-    "HostUrl": "http://localhost"
-  },
-
   "Observability": {
 
     "Metrics": {
@@ -17,29 +13,34 @@
 
     "Serilog": {
       "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Grafana.Loki" ],
-      "MinimumLevel": "Debug",
-      "WriteTo": [
-        {
-          "Name": "File",
-          "Args": { "path": "./output/logs.txt" }
+      "MinimumLevel": {
+        "Default": "Information",
+        "Override": {
+          "Microsoft": "Error",
+          "System": "Error"
         },
-        {
-          "Name": "GrafanaLoki",
-          "Args": {
-            "uri": "http://192.168.1.94:3100",
-            "textFormatter": "Serilog.Sinks.Grafana.Loki.LokiJsonTextFormatter, Serilog.Sinks.Grafana.Loki",
-            "filtrationMode": "Include",
-            "filtrationLabels": [ "level" ],
-            "createLevelLabel": true,
-            "labels": [
-              {
-                "key": "container_name",
-                "value": "ambientweather-api"
-              }
-            ]
+        "WriteTo": [
+          {
+            "Name": "File",
+            "Args": { "path": "./output/logs.txt" }
+          },
+          {
+            "Name": "GrafanaLoki",
+            "Args": {
+              "uri": "http://192.168.1.94:3100",
+              "textFormatter": "Serilog.Sinks.Grafana.Loki.LokiJsonTextFormatter, Serilog.Sinks.Grafana.Loki",
+              "filtrationMode": "Include",
+              "filtrationLabels": [ "level" ],
+              "createLevelLabel": true,
+              "labels": [
+                {
+                  "key": "container_name",
+                  "value": "ambientweather-local-server"
+                }
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     }
-  }
 }

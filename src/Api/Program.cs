@@ -2,7 +2,6 @@
 using Common.Observe;
 using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
-using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Prometheus;
 using Serilog;
@@ -63,11 +62,6 @@ builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 // HANDLERS
 builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
-
-// SETTINGS
-builder.Services.AddSingleton<ISettingsService, SettingsService>();
-builder.Services.AddSingleton<ISettingsCache, SettingsCache>();
-builder.Services.AddSingleton<ISettingsDb, SettingsDb>();
 
 // IO & CONFIG
 builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
