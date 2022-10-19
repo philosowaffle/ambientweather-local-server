@@ -15,13 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{5EA66922-9F42-4C51-90D5-F317C3188D93}"
-	ProjectSection(SolutionItems) = preProject
-		..\docker\docker-compose.yaml = ..\docker\docker-compose.yaml
-		..\docker\Dockerfile = ..\docker\Dockerfile
-		..\docker\entrypoint.sh = ..\docker\entrypoint.sh
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{157A16A8-C6FC-4A95-AACE-39262310003B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{97AC15E9-23E7-4EB7-A7C0-FE830387421D}"
@@ -58,9 +51,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5EA66922-9F42-4C51-90D5-F317C3188D93} = {0414AEF6-18A3-4736-9BA0-CAFDB0F1E575}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38C86B63-BF4B-4F01-9FB4-9A59CC1A67C0}
