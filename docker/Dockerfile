@@ -8,8 +8,8 @@ RUN apt-get update \
 	&& apt-get -y install bash tzdata \
 	&& apt-get purge -y -f --force-yes $EXT_BUILD_DEPS \
 	&& apt-get autoremove -y \
-	&& apt-get clean
-	&& rm -rf /var/lib/apt/lists/* \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -g 1017 awuser && useradd -g awuser -u 1017 awuser
 

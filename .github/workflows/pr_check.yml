@@ -24,20 +24,21 @@ jobs:
         dotnet-version: ${{ matrix.dotnet }}
 
     - name: Clean
-      run: dotnet clean --configuration Debug && dotnet nuget locals all --clear
+      run: dotnet clean src/AmbientWeatherLocalServer.sln --configuration Debug && dotnet nuget locals all --clear
     
     - name: Restore
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Debug
+      run: dotnet build src/AmbientWeatherLocalServer.sln --no-restore --configuration Debug
 
     - name: Test
-      run: dotnet test
+      run: dotnet test src/AmbientWeatherLocalServer.sln
  
   create-test-image:
    name: Publish Docker - PR
    runs-on: ubuntu-latest
+   needs: build-and-test
 
    steps:
 
