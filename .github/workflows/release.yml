@@ -54,6 +54,9 @@ jobs:
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+      - name: Check out the repo
+        uses: actions/checkout@v2
 
       - name: Create Release and Upload Artifact
         uses: ncipollo/release-action@v1
