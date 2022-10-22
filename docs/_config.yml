@@ -1,6 +1,6 @@
-title: <ProjectName>
-description: <ProjectDesc>
-repository: philosowaffle/<ProjectRepo>
+title: AmbientWeather Local Server
+description: A local server for receiving data from your AmbientWeather console and exposing that data as Prometheus metrics.
+repository: philosowaffle/ambientweather-local-server
 locale: en_US
 
 remote_theme: pmarsceill/just-the-docs
@@ -38,9 +38,9 @@ heading_anchors: true
 
 aux_links:
   "GitHub":
-    - "//github.com/philosowaffle/<ProjectRepo>"
+    - "//github.com/philosowaffle/ambientweather-local-server"
   "Join the discussion":
-    - "//github.com/philosowaffle/<ProjectRepo>/discussions"
+    - "//github.com/philosowaffle/ambientweather-local-server/discussions"
   "Donate":
     - "https://www.buymeacoffee.com/philosowaffle"
   
@@ -49,7 +49,7 @@ back_to_top_text: "Back to top"
 
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/philosowaffle/<ProjectRepo>" # the github URL for your repo
+gh_edit_repository: "https://github.com/philosowaffle/ambientweather-local-server" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
 gh_edit_source: docs # the source that your files originate from
