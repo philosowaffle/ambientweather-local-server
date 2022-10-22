@@ -15,7 +15,7 @@ public static class ConfigurationSetup
 /// <summary>
 /// Configuration that must be provided prior to runtime. Typically via config file, command line args, or env variables.
 /// </summary>
-public struct AppConfiguration
+public class AppConfiguration
 {
 	public AppConfiguration()
 	{
@@ -31,7 +31,7 @@ public struct AppConfiguration
 	public static string DataDirectory = Path.Join(Environment.CurrentDirectory, "data");
 }
 
-public struct ApiSettings
+public class ApiSettings
 {
 	public ApiSettings()
 	{
@@ -41,7 +41,7 @@ public struct ApiSettings
 	public string HostUrl { get; set; }
 }
 
-public struct Observability
+public class Observability
 {
 	public Observability()
 	{
@@ -53,18 +53,18 @@ public struct Observability
 	public Traces Traces { get; set; }
 }
 
-public struct Traces
+public class Traces
 {
 	public bool Enabled { get; set; }
 	public string AgentHost { get; set; }
 	public int? AgentPort { get; set; }
 }
 
-public struct Metrics
+public class Metrics
 {
 	public bool Enabled { get; set; }
 }
 
-public struct Developer
+public class Developer
 {
 }

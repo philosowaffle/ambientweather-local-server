@@ -71,9 +71,6 @@ builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
 // IO & CONFIG
 builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
 
-FlurlConfiguration.Configure(config.Observability);
-Tracing.EnableApiTracing(builder.Services, config.Observability.Traces);
-
 Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")
 				.Enrich.FromLogContext()
@@ -81,6 +78,9 @@ Log.Logger = new LoggerConfiguration()
 
 Logging.LogSystemInformation();
 Common.Observe.Metrics.CreateAppInfo();
+
+FlurlConfiguration.Configure(config.Observability);
+Tracing.EnableApiTracing(builder.Services, config.Observability.Traces);
 
 ///////////////////////////////////////////////////////////
 /// APP

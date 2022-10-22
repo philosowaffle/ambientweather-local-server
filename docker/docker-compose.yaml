@@ -10,5 +10,4 @@ services:
       - TZ=America/Chicago
     volumes:
       - ./api.configuration.local.json:/app/configuration.local.json:ro
-      - ./data:/app/data # recommended for saving settings across restarts
-      - ./output:/app/output # optional, if you configure logs to write to file, they will be found here
+      - ./output:/app/output # optional, logs may be written here based on your configuration
