@@ -4,6 +4,7 @@
 ## Features
 
 - Receive data from an Ambient weather station via HTTP API and expose that data as OpenTelemetry metrics via `/metrics` API endpoint
+- [#2] Add MacAddress and StationType to prometheus metrics to help identify distinct stations
 
 ## Changes
 
