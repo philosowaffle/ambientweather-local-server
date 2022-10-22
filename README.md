@@ -1,57 +1,25 @@
 # AmbientWeather Local Server
 
-A local server for recieving AmbientWeather metrics directly from the Console on your local network and exposing these as Prometheus Metrics.
+[![GitHub license](https://img.shields.io/github/license/philosowaffle/ambientweather-local-server.svg)](https://github.com/philosowaffle/ambientweather-local-server/blob/master/LICENSE)
+[![GitHub Release](https://img.shields.io/github/release/philosowaffle/ambientweather-local-server.svg?style=flat)]()
+[![Github all releases](https://img.shields.io/github/downloads/philosowaffle/ambientweather-local-server/total.svg)](https://GitHub.com/philosowaffle/ambientweather-local-server/releases/)
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/philosowaffle)
+<span class="badge-buymeacoffee"><a href="https://www.buymeacoffee.com/philosowaffle" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>
 
-<a href="https://www.buymeacoffee.com/philosowaffle" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+A self-hosted server for receiving metrics directly from the AmbientWeather Console on your local network and exposing this data as Prometheus metrics.
 
-## Notes
+* Stays local on your network
+* Exposes AmbientWeather Console data as Prometheus metrics
 
-1. Tested with the WS-2000
-1. Requires Console Firmware version 1.7.6 or later [instructions](https://ambientweather.com/faqs/question/view/id/1415/)
-1. Requires Console Wifi Firmware version 4.3.2 or later [instructions](https://ambientweather.com/faqs/question/view/id/1449/)
-1. Configure Console to communicate with custom server
-	1. IP address of your docker container
-	1. Port of your docker container
-	1. Path = `/api/ambientweather/metrics?` - the question mark is important
+Head on over to the [Install]({{ site.baseurl }}{% link install/index.md %}) page to get started!
 
-[AWNet Protocol](https://ambientweather.com/faqs/question/view/id/1857/)
+## Supported Platforms
 
-Sample WS-2000 request
-```
-http://localhost:8021/api/ambientweather/metrics?
-stationtype=AMBWeatherV4.3.3
-&PASSKEY=C4:5B:BE:5C:FC:84
-&dateutc=2022-07-16+16:43:05
+* Windows
+* Mac
+* Linux
+* Docker
 
-&tempinf=79.0
-&tempf=92.8
+## Contributors
 
-&winddir=115
-&winddir_avg10m=251
-
-&battin=1
-&battout=1
-&batt_co2=1
-
-&humidityin=51
-&humidity=48
-
-&baromrelin=29.345
-&baromabsin=29.345
-
-&windspeedmph=0.7
-&windspdmph_avg10m=1.8
-&windgustmph=5.8
-&maxdailygust=8.1
-
-&hourlyrainin=0.000
-&eventrainin=0.059
-&dailyrainin=0.000
-&weeklyrainin=0.079
-&monthlyrainin=0.079
-&yearlyrainin=0.079
-
-&solarradiation=727.72
-&uv=7
-
-```
+Special thanks to all the [contributors](https://github.com/philosowaffle/ambientweather-local-server/graphs/contributors) who have helped improve this project!
