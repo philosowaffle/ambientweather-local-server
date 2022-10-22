@@ -14,6 +14,8 @@ A self-hosted server for receiving metrics directly from the AmbientWeather Cons
 
 Head on over to the [Install](https://philosowaffle.github.io/ambientweather-local-server/install) page to get started!
 
+![Grafana Dashboard Demo](/images/grafana_dashboard.gif?raw=true "Grafana Dashboard Demo")
+
 ## Supported Platforms
 
 * Windows
