@@ -3,22 +3,11 @@ version: "3.9"
 services:
   ambient-weather:
     container_name: ambient-weather-server
-    image: philosowaffle/ambientweather-local-server:api-latest
+    image: philosowaffle/ambientweather-local-server:latest
     ports:
-      - 8001:80
+      - 8001:8080
     environment:
       - TZ=America/Chicago
     volumes:
-      - ./api.configuration.local.json:/app/configuration.local.json
-      - ./data:/app/data # recommended for saving settings across restarts
-      - ./output:/app/output # optional, if you configure logs to write to file, they will be found here
-
-  ambient-weather-webui:
-    container_name: ambient-weather-webui
-    image: philosowaffle/ambientweather-local-server:webui-latest
-    ports:
-      - 8002:80
-    environment:
-      - TZ=America/Chicago
-    volumes:
-      - ./webui.configuration.local.json:/app/configuration.local.json
+      - ./api.configuration.local.json:/app/configuration.local.json:ro
+      - ./output:/app/output # optional, logs may be written here based on your configuration

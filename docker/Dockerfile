@@ -8,7 +8,8 @@ RUN apt-get update \
 	&& apt-get -y install bash tzdata \
 	&& apt-get purge -y -f --force-yes $EXT_BUILD_DEPS \
 	&& apt-get autoremove -y \
-	&& apt-get clean
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -g 1017 awuser && useradd -g awuser -u 1017 awuser
 
@@ -37,9 +38,9 @@ ENV VERSION=${VERSION}
 # BUILD API
 ###################
 RUN if [[ "$TARGETPLATFORM" = "linux/arm64" ]] ; then \
-		dotnet publish /build/src/Api/Api.csproj -c Release -r linux-arm64 -o /build/published --version-suffix $VERSION ; \
+		dotnet publish /build/src/Api/Api.csproj -c Release -r linux-arm64 -o /build/published/api --version-suffix $VERSION --self-contained ; \
 	else \
-		dotnet publish /build/src/Api/Api.csproj -c Release -r linux-x64 -o /build/published --version-suffix $VERSION ; \
+		dotnet publish /build/src/Api/Api.csproj -c Release -r linux-x64 -o /build/published/api --version-suffix $VERSION --self-contained ; \
 	fi
 
 ###################
@@ -47,12 +48,14 @@ RUN if [[ "$TARGETPLATFORM" = "linux/arm64" ]] ; then \
 ###################
 FROM final
 
-COPY --from=build /build/published .
 COPY --from=build /build/LICENSE ./LICENSE
-COPY --from=build /build/api.configuration.example.json ./configuration.local.json
+
+COPY --from=build /build/published/api ./api
+
+COPY --from=build /build/api.configuration.example.json ./api/configuration.local.json
 
 COPY --chmod=770 ./docker/entrypoint.sh .
 
-EXPOSE 80 443
+EXPOSE 8080 8443
 ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["api"]

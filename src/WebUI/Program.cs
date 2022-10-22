@@ -1,4 +1,4 @@
-using Common;
+﻿using Common;
 using Common.Observe;
 using MudBlazor.Services;
 using Prometheus;
@@ -49,7 +49,7 @@ Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .CreateLogger();
 
-Tracing.EnableTracing(builder.Services, config.Observability.Traces);
+Tracing.EnableWebUITracing(builder.Services, config.Observability.Traces);
 FlurlConfiguration.Configure(config.Observability, 20);
 
 builder.Services.AddScoped<IApiClient>(sp => new ApiClient(apiSettings.HostUrl));

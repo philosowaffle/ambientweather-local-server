@@ -9,53 +9,72 @@ namespace Common.Observe;
 
 public static class Tracing
 {
-	public static ActivitySource Source;
+	public static ActivitySource? Source;
 
-	public static void EnableTracing(IServiceCollection services, Traces config)
+	public static void EnableApiTracing(IServiceCollection services, Traces config)
 	{
-		if (config.Enabled)
-		{
-			services.AddOpenTelemetryTracing(
-				(builder) => builder
-					.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(Label.LabelPrefix))
-					.AddSource(Label.LabelPrefix)
-					.SetSampler(new AlwaysOnSampler())
-					.SetErrorStatusOnException()
-					.AddAspNetCoreInstrumentation(c =>
-					{
-						c.RecordException = true;
-						c.Enrich = AspNetCoreEnricher;
-					})
-					.AddHttpClientInstrumentation(h =>
-					{
-						h.RecordException = true;
-						h.Enrich = HttpEnricher;
-					})
-					.AddJaegerExporter(o =>
-					{
-						o.AgentHost = config.AgentHost;
-						o.AgentPort = config.AgentPort.GetValueOrDefault();
-					})
-			);
+		if (!config.Enabled)
+			return;
 
-			Log.Information("Tracing started and exporting to: http://{@Host}:{@Port}", config.AgentHost, config.AgentPort);
-		}
+		services.AddOpenTelemetryTracing(
+			(builder) =>
+			{
+				builder
+				.ConfigureDefaultBuilder(config)
+				.AddAspNetCoreInstrumentation(c =>
+				{
+					c.RecordException = true;
+					c.Enrich = AspNetCoreEnricher;
+				});
+			});
+
+		Log.Information("Tracing started and exporting to: http://{@Host}:{@Port}", config.AgentHost, config.AgentPort);
+
 	}
 
-	public static Activity Trace(string name)
+	private static TracerProviderBuilder ConfigureDefaultBuilder(this TracerProviderBuilder builder, Traces config)
 	{
-		var activity = Activity.Current?.Source.StartActivity(name)
-			??
-			new ActivitySource(Label.LabelPrefix)?.StartActivity(name);
+		return builder
+				.AddSource(Statics.TracingService)
+				.SetResourceBuilder(
+					ResourceBuilder
+					.CreateDefault()
+					.AddService(serviceName: Statics.TracingService, serviceVersion: Constants.AppVersion)
+					.AddAttributes(new List<KeyValuePair<string, object>>()
+					{
+							new KeyValuePair<string, object>("host.machineName", Environment.MachineName),
+							new KeyValuePair<string, object>("host.os", Environment.OSVersion.VersionString),
+							new KeyValuePair<string, object>("dotnet.version", Environment.Version.ToString()),
+					})
+				)
+				.SetSampler(new AlwaysOnSampler())
+				.SetErrorStatusOnException()
+				.AddHttpClientInstrumentation(h =>
+				{
+					h.RecordException = true;
+					h.Enrich = HttpEnricher;
+				})
+				.AddJaegerExporter(o =>
+				{
+					o.AgentHost = config.AgentHost;
+					o.AgentPort = config.AgentPort.GetValueOrDefault();
+					o.Protocol = OpenTelemetry.Exporter.JaegerExportProtocol.UdpCompactThrift;
+				});
+	}
+
+	public static Activity? Trace(string name, string category = "app", ActivityKind kind = ActivityKind.Server)
+	{
+		var activity = Source?.StartActivity(name, kind);
 
 		activity?
+		.SetTag("category", category)
 			.SetTag("SpanId", activity.SpanId)
 			.SetTag("TraceId", activity.TraceId);
 
 		return activity;
 	}
 
-	public static Activity WithTag(this Activity activity, string key, string value)
+	public static Activity? WithTag(this Activity? activity, string key, string value)
 	{
 		return activity?.SetTag(key, value);
 	}
@@ -84,24 +103,25 @@ public static class Tracing
 		{
 			if (rawEventObject is HttpRequestMessage request)
 			{
-				activity.DisplayName = $"{request.Method} {request.RequestUri.AbsolutePath}";
-				activity.SetTag("http.path", request.RequestUri.AbsolutePath);
-				activity.SetTag("http.query", request.RequestUri.Query);
-				activity.SetTag("http.body", request.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? "no_content");
+				activity.DisplayName = $"{request.Method} {request?.RequestUri?.AbsolutePath}";
+				activity.SetTag("http.request.path", request?.RequestUri?.AbsolutePath);
+				activity.SetTag("http.request.query", request?.RequestUri?.Query);
+				activity.SetTag("http.request.body", request?.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? "no_content");
 			}
 		}
 		else if (name.Equals("OnStopActivity"))
 		{
 			if (rawEventObject is HttpResponseMessage response)
 			{
-				activity.SetTag("http.response.body", response.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? "no_content");
+				var content = response.Content?.ReadAsStringAsync().GetAwaiter().GetResult() ?? "no_content";
+				activity.SetTag("http.response.body", content);
 			}
 		}
 		else if (name.Equals("OnException"))
 		{
 			if (rawEventObject is Exception exception)
 			{
-				activity.SetTag("error.stackTrace", exception.StackTrace);
+				activity.SetTag("stackTrace", exception.StackTrace);
 			}
 		}
 	}

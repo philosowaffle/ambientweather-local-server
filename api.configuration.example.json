@@ -1,8 +1,4 @@
 {
-  "Api": {
-    "HostUrl": "http://localhost"
-  },
-
   "Observability": {
 
     "Metrics": {
@@ -16,9 +12,16 @@
     },
 
     "Serilog": {
-      "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Grafana.Loki" ],
-      "MinimumLevel": "Debug",
+      "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Console", "Serilog.Sinks.Grafana.Loki" ],
+      "MinimumLevel": {
+        "Default": "Information",
+        "Override": {
+          "Microsoft": "Error",
+          "System": "Error"
+        }
+      },
       "WriteTo": [
+        { "Name": "Console" },
         {
           "Name": "File",
           "Args": { "path": "./output/logs.txt" }
@@ -34,7 +37,7 @@
             "labels": [
               {
                 "key": "container_name",
-                "value": "ambientweather-api"
+                "value": "ambientweather-local-server"
               }
             ]
           }

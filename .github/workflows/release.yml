@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release Version'
+        required: true
+
+jobs:  
+  
+  release:
+    name: Publish Docker API and Tag Release
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_PACKAGE_SECRET }}
+      
+      - name: Prepare env
+        run: |
+          echo "BUILD_VERSION=${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ID}" >> $GITHUB_ENV
+
+      - name: Build & Push to Package Repositories
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: ./docker/Dockerfile
+          platforms: linux/arm64,linux/amd64
+          build-args: VERSION=${{ env.BUILD_VERSION }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/ambientweather-local-server:stable
+            ${{ secrets.DOCKER_USERNAME }}/ambientweather-local-server:${{ github.event.inputs.version }}
+            ghcr.io/${{ github.repository_owner }}/ambientweather-local-server:stable
+            ghcr.io/${{ github.repository_owner }}/ambientweather-local-server:${{ github.event.inputs.version }}
+          
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: Create Release and Upload Artifact
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ github.event.inputs.version }}
+          allowUpdates: true
+          replacesArtifacts: true
+          bodyFile:  ${{ github.workspace }}/vNextReleaseNotes.md

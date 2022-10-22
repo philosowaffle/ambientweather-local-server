@@ -3,6 +3,7 @@ using Core.MetricsHandlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
+
 [ApiController]
 [Route("api/ambientweather/metrics")]
 [Produces("application/json")]
@@ -19,6 +20,7 @@ public class AmbientWeatherMetricsController : ControllerBase
 	/// Accepts Metrics from an AmbientWeather station and processes them.
 	/// </summary>
 	[HttpGet]
+	[ProducesResponseType(StatusCodes.Status200OK)]
 	public Task GetAsync([FromQuery] AmbientWeatherMetricsPostRequest request)
 	{
 		var tasks = new List<Task>(_metricsHandlers.Count());

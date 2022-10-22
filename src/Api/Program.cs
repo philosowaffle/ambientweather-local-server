@@ -1,8 +1,8 @@
 ﻿using Common;
 using Common.Observe;
+using Core.GitHub;
 using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
-using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Prometheus;
 using Serilog;
@@ -13,22 +13,22 @@ using System.Reflection;
 ///////////////////////////////////////////////////////////
 /// STATICS
 ///////////////////////////////////////////////////////////
-Label.LabelPrefix = Constants.ApiName;
+Statics.AppType = Constants.ApiName;
+Statics.MetricPrefix = Constants.ApiName;
+Statics.TracingService = Constants.ApiName;
 
 ///////////////////////////////////////////////////////////
 /// HOST
 ///////////////////////////////////////////////////////////
 var builder = WebApplication.CreateBuilder(args);
 
-var configProvider = builder.Configuration.AddJsonFile(Path.Join(Environment.CurrentDirectory, "configuration.local.json"), optional: true, reloadOnChange: true)
-				.AddEnvironmentVariables(prefix: Constants.EnvironmentVariablePrefix)
-				.AddCommandLine(args)
-				.Build();
+builder.Configuration
+	.AddJsonFile(Path.Join(Environment.CurrentDirectory, "configuration.local.json"), optional: true, reloadOnChange: true)
+	.AddEnvironmentVariables(prefix: Constants.EnvironmentVariablePrefix)
+	.AddCommandLine(args);
 
 var config = new AppConfiguration();
-builder.Configuration.GetSection("Api").Bind(config.Api);
-builder.Configuration.GetSection(nameof(Observability)).Bind(config.Observability);
-builder.Configuration.GetSection(nameof(Developer)).Bind(config.Developer);
+ConfigurationSetup.LoadConfigValues(builder.Configuration, config);
 
 builder.WebHost.UseUrls(config.Api.HostUrl);
 
@@ -43,66 +43,53 @@ builder.Host.UseSerilog((ctx, logConfig) =>
 ///////////////////////////////////////////////////////////
 /// SERVICES
 ///////////////////////////////////////////////////////////
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = $"{Constants.ApiName}", Version = "v1" });
+	var executingAssembly = Assembly.GetExecutingAssembly();
+	var referencedAssemblies = executingAssembly.GetReferencedAssemblies();
+	var docPaths = referencedAssemblies
+					.Union(new AssemblyName[] { executingAssembly.GetName() })
+					.Select(a => Path.Combine(AppContext.BaseDirectory, $"{a.Name}.xml"))
+					.Where(f => File.Exists(f)).ToArray();
+	foreach (var docPath in docPaths)
+		c.IncludeXmlComments(docPath);
+});
+
+// CACHE
+builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
+
+// GITHUB
+builder.Services.AddSingleton<IGitHubApiClient, ApiClient>();
+builder.Services.AddSingleton<IGitHubService, GitHubService>();
+
+// HANDLERS
+builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
+
+// IO & CONFIG
+builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
 
 Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")
 				.Enrich.FromLogContext()
 				.CreateLogger();
 
+Logging.LogSystemInformation();
+Common.Observe.Metrics.CreateAppInfo();
+
 FlurlConfiguration.Configure(config.Observability);
-Tracing.EnableTracing(builder.Services, config.Observability.Traces);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-	c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = $"{Constants.ApiName}", Version = "v1" });
-	var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-	c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-});
-
-// CACHE
-builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
-
-// HANDLERS
-builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
-
-// SETTINGS
-builder.Services.AddSingleton<ISettingsService, SettingsService>();
-builder.Services.AddSingleton<ISettingsCache, SettingsCache>();
-builder.Services.AddSingleton<ISettingsDb, SettingsDb>();
-
-// IO & CONFIG
-builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
-builder.Services.AddSingleton<AppConfiguration>((serviceProvider) =>
-{
-	var config = new AppConfiguration();
-	builder.Configuration.GetSection("Api").Bind(config.Api);
-	builder.Configuration.GetSection(nameof(Observability)).Bind(config.Observability);
-	builder.Configuration.GetSection(nameof(Developer)).Bind(config.Developer);
-	return config;
-});
-
-var runtimeVersion = Environment.Version.ToString();
-var os = Environment.OSVersion.Platform.ToString();
-var osVersion = Environment.OSVersion.VersionString;
-var version = Constants.AppVersion;
-
-Prometheus.Metrics.CreateGauge(Label.BuildInfo, "Build info for the running instance.", new GaugeConfiguration()
-{
-	LabelNames = new[] { Label.Version, Label.Os, Label.OsVersion, Label.DotNetRuntime }
-}).WithLabels(version, os, osVersion, runtimeVersion)
-.Set(1);
-
-Log.Debug("Api Version: {@Version}", version);
-Log.Debug("Operating System: {@Os}", osVersion);
-Log.Debug("DotNet Runtime: {@DotnetRuntime}", runtimeVersion);
+Tracing.EnableApiTracing(builder.Services, config.Observability.Traces);
 
 ///////////////////////////////////////////////////////////
 /// APP
 ///////////////////////////////////////////////////////////
 
 var app = builder.Build();
+
+// Setup initial Tracing Source
+Tracing.Source = new(Statics.TracingService);
 
 app.UseCors(options =>
 {
@@ -119,7 +106,6 @@ if (Log.IsEnabled(LogEventLevel.Verbose))
 
 app.Use(async (context, next) =>
 {
-	using var tracing = Tracing.Trace($"{nameof(Program)}.Entrypoint");
 	await next.Invoke();
 });
 
@@ -134,5 +120,18 @@ if (config.Observability.Metrics.Enabled)
 
 app.UseAuthorization();
 app.MapControllers();
+
+var githubService = app.Services.GetService<IGitHubService>();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+var latestVersionInformation = await githubService.GetLatestReleaseAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+if (latestVersionInformation.IsReleaseNewerThanInstalledVersion)
+{
+	Log.Information("*********************************************");
+	Log.Information("A new version is available: {@Version}", latestVersionInformation.LatestVersion);
+	Log.Information("Release Date: {@ReleaseDate}", latestVersionInformation.ReleaseDate);
+	Log.Information("Release Information: {@ReleaseUrl}", latestVersionInformation.ReleaseUrl);
+	Log.Information("*********************************************");
+}
 
 await app.RunAsync();

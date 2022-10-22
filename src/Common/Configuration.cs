@@ -6,6 +6,7 @@ public static class ConfigurationSetup
 {
 	public static void LoadConfigValues(IConfiguration provider, AppConfiguration config)
 	{
+		provider.GetSection("Api").Bind(config.Api);
 		provider.GetSection(nameof(Observability)).Bind(config.Observability);
 		provider.GetSection(nameof(Developer)).Bind(config.Developer);
 	}
@@ -34,17 +35,7 @@ public class ApiSettings
 {
 	public ApiSettings()
 	{
-		HostUrl = "http://localhost";
-	}
-
-	public string HostUrl { get; set; }
-}
-
-public class WebUISettings
-{
-	public WebUISettings()
-	{
-		HostUrl = "http://localhost:8020";
+		HostUrl = "http://*:8080";
 	}
 
 	public string HostUrl { get; set; }
@@ -64,6 +55,11 @@ public class Observability
 
 public class Traces
 {
+	public Traces()
+	{
+		AgentHost = "http://localhost";
+	}
+
 	public bool Enabled { get; set; }
 	public string AgentHost { get; set; }
 	public int? AgentPort { get; set; }
