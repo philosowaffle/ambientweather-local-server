@@ -14,6 +14,9 @@ public class AmbientWeatherMetricsPostRequest
 	/// AmbientWeather System Type
 	/// </summary>
 	public string? StationType { get; set; }
+	/// <summary>
+	/// This can also be the mac address
+	/// </summary>
 	public string? PassKey { get; set; }
 	public DateTime DateUtc { get; set; }
 	/// <summary>
