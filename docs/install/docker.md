@@ -34,17 +34,13 @@ You can learn more about customizing your configuration over in the [Configurati
 
 ## Repositories
 
-### DockerHub
-
-[DockerHub](https://hub.docker.com/r/philosowaffle/ambientweather-local-server)
+### [DockerHub](https://hub.docker.com/r/philosowaffle/ambientweather-local-server)
 
 ```bash
 docker run -v /full/path/to/configuration.local.json:/app/configuration.local.json -v /full/path/to/output:/app/output philosowaffle/ambientweather-local-server:stable
 ```
 
-### GitHub Package
-
-[GitHub Package](https://github.com/philosowaffle/ambientweather-local-server/pkgs/container/ambientweather-local-server)
+### [GitHub Package](https://github.com/philosowaffle/ambientweather-local-server/pkgs/container/ambientweather-local-server)
 
 ```bash
 docker run -v /full/path/to/configuration.local.json:/app/configuration.local.json -v /full/path/to/output:/app/output ghcr.io/philosowaffle/ambientweather-local-server:stable

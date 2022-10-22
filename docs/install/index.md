@@ -9,10 +9,11 @@ has_children: true
 
 AmbientWeather Local Server can be run on all major operating systems.
 
-## Steps
-
-1. Install and start up `ambientweather-local-server`
+**Steps:**
+1. [Install](#install)
 1. [Configure your AmbientWeather Console]({{ site.baseurl }}{% link install/setup-ambientweather-console.md %}) to publish data to the server
+
+## Install
 
 | Choose your system |
 |:-------------------|

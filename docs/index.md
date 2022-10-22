@@ -6,7 +6,7 @@ nav_order: 0
 
 # Home
 
-A local server for receiving metrics directly from the AmbientWeather Console on your local network and exposing this data as Prometheus metrics.
+A self-hosted server for receiving metrics directly from the AmbientWeather Console on your local network and exposing this data as Prometheus metrics.
 
 * Stays local on your network
 * Exposes AmbientWeather Console data as Prometheus metrics
