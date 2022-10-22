@@ -4,7 +4,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/philosowaffle/ambientweather-local-server.svg)](https://github.com/philosowaffle/ambientweather-local-server/blob/master/LICENSE)
 [![GitHub Release](https://img.shields.io/github/release/philosowaffle/ambientweather-local-server.svg?style=flat)]()
-[![Github all releases](https://img.shields.io/github/downloads/philosowaffle/ambientweather-local-server/total.svg)](https://GitHub.com/philosowaffle/ambientweather-local-server/releases/)
+[![Github all releases](https://img.shields.io/docker/pulls/philosowaffle/ambientweather-local-server)](https://GitHub.com/philosowaffle/ambientweather-local-server/releases/)
 
 
 A self-hosted server for receiving metrics directly from the AmbientWeather Console on your local network and exposing this data as Prometheus metrics.
