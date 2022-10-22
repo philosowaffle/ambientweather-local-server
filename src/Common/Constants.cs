@@ -6,5 +6,5 @@ public static class Constants
 
 	public const string ApiName = "ambientweather_api";
 
-	public const string AppVersion = "1.0.0-rc";
+	public const string AppVersion = "1.0.0";
 }
