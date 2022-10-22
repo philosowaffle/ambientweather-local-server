@@ -3,7 +3,7 @@
 /// <summary>
 /// https://ambientweather.com/faqs/question/view/id/1857/
 /// </summary>
-public struct AmbientWeatherMetricsPostRequest
+public class AmbientWeatherMetricsPostRequest
 {
 	/// <summary>
 	/// Mac Address of the weather console

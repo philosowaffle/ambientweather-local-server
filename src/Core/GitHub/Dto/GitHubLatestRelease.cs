@@ -1,6 +1,6 @@
 ﻿namespace Core.GitHub.Dto;
 
-public struct GitHubLatestRelease
+public class GitHubLatestRelease
 {
 	public string? Html_Url { get; set; }
 	public string? Tag_Name { get; set; }

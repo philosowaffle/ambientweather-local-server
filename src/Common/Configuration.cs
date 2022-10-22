@@ -55,6 +55,11 @@ public class Observability
 
 public class Traces
 {
+	public Traces()
+	{
+		AgentHost = "http://localhost";
+	}
+
 	public bool Enabled { get; set; }
 	public string AgentHost { get; set; }
 	public int? AgentPort { get; set; }
