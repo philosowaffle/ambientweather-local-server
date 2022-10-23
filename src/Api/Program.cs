@@ -1,8 +1,10 @@
 ﻿using Common;
 using Common.Observe;
+using Core.AmbientWeatherNetwork;
 using Core.GitHub;
 using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
+using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Prometheus;
 using Serilog;
@@ -40,6 +42,9 @@ builder.Host.UseSerilog((ctx, logConfig) =>
 	.Enrich.FromLogContext();
 });
 
+if (config.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork)
+	builder.Host.ConfigureServices(services => services.AddHostedService<AWNBackgroundCollector>());
+
 ///////////////////////////////////////////////////////////
 /// SERVICES
 ///////////////////////////////////////////////////////////
@@ -70,6 +75,9 @@ builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
 
 // IO & CONFIG
 builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
+
+// SETTINGS
+builder.Services.AddSingleton<ISettingsService, FileBasedSettingsService>();
 
 Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")

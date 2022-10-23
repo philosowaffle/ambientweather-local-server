@@ -7,6 +7,7 @@ public static class ConfigurationSetup
 	public static void LoadConfigValues(IConfiguration provider, AppConfiguration config)
 	{
 		provider.GetSection("Api").Bind(config.Api);
+		provider.GetSection(nameof(AmbientWeatherSettings)).Bind(config.AmbientWeatherSettings);
 		provider.GetSection(nameof(Observability)).Bind(config.Observability);
 		provider.GetSection(nameof(Developer)).Bind(config.Developer);
 	}
@@ -20,11 +21,13 @@ public class AppConfiguration
 	public AppConfiguration()
 	{
 		Api = new ApiSettings();
+		AmbientWeatherSettings = new AmbientWeatherSettings();
 		Observability = new Observability();
 		Developer = new Developer();
 	}
 
 	public ApiSettings Api { get; set; }
+	public AmbientWeatherSettings AmbientWeatherSettings { get; set; }
 	public Observability Observability { get; set; }
 	public Developer Developer { get; set; }
 
@@ -39,6 +42,13 @@ public class ApiSettings
 	}
 
 	public string HostUrl { get; set; }
+}
+
+public class AmbientWeatherSettings
+{
+	public bool EnrichFromAmbientWeatherNetwork { get; set; }
+	public string? UserApiKey { get; set; }
+	public string? ApplicationKey { get; set; }
 }
 
 public class Observability
