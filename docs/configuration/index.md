@@ -21,8 +21,8 @@ The following defines the precedence in which config definitions are honored. Wi
 1. Environment Variables
 1. Config File
 
-For example, if you defined your Peloton credentials ONLY in the Config file, then the Config file credentials will be used.
+For example, if you defined a setting ONLY in the Config file, then the Config file setting will be used.
 
-If you defined your credentials in both the Config file AND the Environment variables, then the Environment variable credentials will be used.
+If you defined a setting in both the Config file AND the Environment variables, then the Environment variable setting will be used.
 
-If you defined credentials using all 3 methods (config file, env, and command line), then the credentials provided via the command line will be used.
+If you defined a setting using all 3 methods (config file, env, and command line), then the setting provided via the command line will be used.
