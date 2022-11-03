@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 
 namespace Common;
 
@@ -7,9 +8,28 @@ public static class ConfigurationSetup
 	public static void LoadConfigValues(IConfiguration provider, AppConfiguration config)
 	{
 		provider.GetSection("Api").Bind(config.Api);
-		provider.GetSection(nameof(AmbientWeatherSettings)).Bind(config.AmbientWeatherSettings);
+		provider.GetSection("AmbientWeather").Bind(config.AmbientWeatherSettings);
 		provider.GetSection(nameof(Observability)).Bind(config.Observability);
 		provider.GetSection(nameof(Developer)).Bind(config.Developer);
+	}
+
+	public static bool IsValid(this AmbientWeatherSettings settings)
+	{
+		if (!settings.EnrichFromAmbientWeatherNetwork) return true;
+
+		if (string.IsNullOrEmpty(settings.ApplicationKey))
+		{
+			Log.Error("ApplicationKey is required for enriching from the AmbientWeather Network");
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(settings.UserApiKey))
+		{
+			Log.Error("UserApiKey is required for enriching from the AmbientWeather Network");
+			return false;
+		}
+
+		return true;
 	}
 }
 

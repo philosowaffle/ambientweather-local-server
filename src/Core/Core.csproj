@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cirrus" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
