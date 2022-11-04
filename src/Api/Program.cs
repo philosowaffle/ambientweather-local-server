@@ -73,6 +73,7 @@ if (config.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork
 	{
 		cirrusConfig.ApiKeys = new List<string>(1) { config.AmbientWeatherSettings.UserApiKey };
 		cirrusConfig.ApplicationKey = config.AmbientWeatherSettings.ApplicationKey;
+		cirrusConfig.MacAddress = "kjhkjhk";
 	});
 
 	builder.Host.ConfigureServices(services => services.AddHostedService<AWNBackgroundCollector>());

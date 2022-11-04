@@ -51,12 +51,18 @@ public class AWNBackgroundCollector : BackgroundService
 			cirrus.OnSubscribe += OnSubscribe;
 			cirrus.OnDataReceived += OnDataReceived;
 
+			//await cirrus.Subscribe(cancellationToken);
 			await cirrus.OpenConnection(cancellationToken);
-		}
-		finally
+
+		} catch (Exception e)
 		{
-			await cirrus.CloseConnection();
+			_logger.Fatal(e, "AWN Socket error");
 		}
+		//finally
+		//{
+		//	//await cirrus.Unsubscribe();
+		//	await cirrus.CloseConnection();
+		//}
 	}
 
 	private void OnSubscribe(object sender, OnSubscribeEventArgs args)
