@@ -1,5 +1,4 @@
-﻿using Cirrus.Extensions;
-using Common;
+﻿using Common;
 using Common.Observe;
 using Core.AmbientWeatherNetwork;
 using Core.GitHub;
