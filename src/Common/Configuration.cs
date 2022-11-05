@@ -69,6 +69,7 @@ public class AmbientWeatherSettings
 	public bool EnrichFromAmbientWeatherNetwork { get; set; }
 	public string? UserApiKey { get; set; }
 	public string? ApplicationKey { get; set; }
+	public int PollingFrequencySeconds { get; set; } = 60;
 }
 
 public class Observability

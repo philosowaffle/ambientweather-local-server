@@ -1,42 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cirrus.Wrappers;
-using Common.Observe;
+﻿using Common.Observe;
+using Core.MetricsHandlers;
 using Core.Settings;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Core.AmbientWeatherNetwork;
 public class AWNBackgroundCollector : BackgroundService
 {
-	private const string SocketUrl = "https://rt2.ambientweather.net/?api=1";
-
 	private static readonly ILogger _logger = LogContext.ForClass<AWNBackgroundCollector>();
 
 	private readonly ISettingsService _settingsService;
-	private readonly IServiceProvider _serviceProvider;
+	private readonly IApiClient _client;
+	private readonly IEnumerable<IMetricsHandler> _metricsHandlers;
 
-	public AWNBackgroundCollector(ISettingsService settingsService, IServiceProvider serviceProvider)
+	public AWNBackgroundCollector(ISettingsService settingsService, IApiClient client, IEnumerable<IMetricsHandler> metricsHandlers)
 	{
 		_settingsService = settingsService;
-		_serviceProvider = serviceProvider;
+		_client = client;
+		_metricsHandlers = metricsHandlers;
 	}
 
 	protected override Task ExecuteAsync(CancellationToken stoppingToken)
 	{
-		using (IServiceScope scope = _serviceProvider.CreateScope())
-		{
-			var cirrus = scope.ServiceProvider.GetRequiredService<ICirrusRealtime>();
-
-			return RunAsync(stoppingToken, cirrus);
-		}
+		return RunAsync(stoppingToken);
 	}
 
-	private async Task RunAsync(CancellationToken cancellationToken, ICirrusRealtime cirrus)
+	private async Task RunAsync(CancellationToken cancellationToken )
 	{
 		try
 		{
@@ -45,37 +34,29 @@ public class AWNBackgroundCollector : BackgroundService
 			if (!settings.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork)
 				return;
 
-			if (string.IsNullOrEmpty(settings.AmbientWeatherSettings.ApplicationKey))
-				return;
+			var apiKey = settings.AmbientWeatherSettings.UserApiKey;
+			var applicationKey = settings.AmbientWeatherSettings.ApplicationKey;
+			var frequency = settings.AmbientWeatherSettings.PollingFrequencySeconds;
+			while (!cancellationToken.IsCancellationRequested)
+			{
+				var data = await _client.GetLatestFromDevicesAsync(apiKey, applicationKey);
 
-			cirrus.OnSubscribe += OnSubscribe;
-			cirrus.OnDataReceived += OnDataReceived;
+				var tasks = new List<Task>(_metricsHandlers.Count());
+				foreach (var device in data)
+				{
+					if (device is null || device.LastData is null) continue;
+					foreach (var handler in _metricsHandlers)
+						tasks.Add(handler.ProcessAsync(device.LastData));
+				}				
 
-			//await cirrus.Subscribe(cancellationToken);
-			await cirrus.OpenConnection(cancellationToken);
+				await Task.WhenAll(tasks);
+
+				Thread.Sleep(frequency * 1000);
+			}
 
 		} catch (Exception e)
 		{
-			_logger.Fatal(e, "AWN Socket error");
+			_logger.Fatal(e, "AWN Api error");
 		}
-		//finally
-		//{
-		//	//await cirrus.Unsubscribe();
-		//	await cirrus.CloseConnection();
-		//}
-	}
-
-	private void OnSubscribe(object sender, OnSubscribeEventArgs args)
-	{
-		_logger.Verbose("Connected to AWN Socket and subscribed to device {@device}", args.UserDevice);
-	}
-
-	private void OnDataReceived(object sender, OnDataReceivedEventArgs args)
-	{
-		// TODO: start trace activity
-
-		_logger.Verbose("Data Received");
-
-		// args.Device
 	}
 }

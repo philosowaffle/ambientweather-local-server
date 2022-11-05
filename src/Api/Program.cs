@@ -1,5 +1,4 @@
 ﻿using Cirrus.Extensions;
-using Cirrus.Models;
 using Common;
 using Common.Observe;
 using Core.AmbientWeatherNetwork;
@@ -44,6 +43,13 @@ builder.Host.UseSerilog((ctx, logConfig) =>
 	.Enrich.FromLogContext();
 });
 
+if (config.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork
+	&& config.AmbientWeatherSettings.IsValid())
+{
+	builder.Host.ConfigureServices(services => services.AddHostedService<AWNBackgroundCollector>());
+}
+	
+
 ///////////////////////////////////////////////////////////
 /// SERVICES
 ///////////////////////////////////////////////////////////
@@ -62,25 +68,14 @@ builder.Services.AddSwaggerGen(c =>
 		c.IncludeXmlComments(docPath);
 });
 
+// AWN API
+builder.Services.AddSingleton<IApiClient, Core.AmbientWeatherNetwork.ApiClient>();
+
 // CACHE
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
-// CIRRUS
-if (config.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork
-	&& config.AmbientWeatherSettings.IsValid())
-{
-	builder.Services.AddCirrusServices(cirrusConfig =>
-	{
-		cirrusConfig.ApiKeys = new List<string>(1) { config.AmbientWeatherSettings.UserApiKey };
-		cirrusConfig.ApplicationKey = config.AmbientWeatherSettings.ApplicationKey;
-		cirrusConfig.MacAddress = "kjhkjhk";
-	});
-
-	builder.Host.ConfigureServices(services => services.AddHostedService<AWNBackgroundCollector>());
-}
-
 // GITHUB
-builder.Services.AddSingleton<IGitHubApiClient, ApiClient>();
+builder.Services.AddSingleton<IGitHubApiClient, Core.GitHub.ApiClient>();
 builder.Services.AddSingleton<IGitHubService, GitHubService>();
 
 // HANDLERS

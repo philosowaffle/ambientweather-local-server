@@ -4,7 +4,7 @@ namespace Core.MetricsHandlers.PrometheusMetrics;
 
 public class PrometheusHandler : IMetricsHandler
 {
-	public Task ProcessAsync(AmbientWeatherMetricsPostRequest metrics)
+	public Task ProcessAsync(IAmbientWeatherMetrics metrics)
 	{
 		ProcessHumditiy(metrics);
 		ProcessLowBattery(metrics);
@@ -18,13 +18,13 @@ public class PrometheusHandler : IMetricsHandler
 		return Task.CompletedTask;
 	}
 
-	public void ProcessHumditiy(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessHumditiy(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.Humidity.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.Humidity
-				.WithLabels("outdoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("outdoor", metrics)
 				.Set(metrics.Humidity.Value);
 		}
 
@@ -32,18 +32,18 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Humidity
-				.WithLabels("indoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("indoor", metrics)
 				.Set(metrics.HumidityIn.Value);
 		}
 	}
 
-	public void ProcessLowBattery(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessLowBattery(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.BattIn.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.LowBattery
-				.WithLabels("indoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("indoor", metrics)
 				.Set((int)metrics.BattIn.Value);
 		}
 
@@ -51,7 +51,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.LowBattery
-				.WithLabels("outdoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("outdoor", metrics)
 				.Set((int)metrics.BattOut.Value);
 		}
 
@@ -59,18 +59,18 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.LowBattery
-				.WithLabels("co2", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("co2", metrics)
 				.Set((int)metrics.Batt_Co2.Value);
 		}
 	}
 
-	public void ProcessRain(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessRain(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.EventRainIn.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("event", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("event", metrics)
 				.Set(metrics.EventRainIn.Value);
 		}
 
@@ -78,7 +78,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("hourly", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("hourly", metrics)
 				.Set(metrics.HourlyRainIn.Value);
 		}
 
@@ -86,7 +86,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("daily", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("daily", metrics)
 				.Set(metrics.DailyRainIn.Value);
 		}
 
@@ -94,7 +94,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("weekly", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("weekly", metrics)
 				.Set(metrics.WeeklyRainIn.Value);
 		}
 
@@ -102,7 +102,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("monthly", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("monthly", metrics)
 				.Set(metrics.MonthlyRainIn.Value);
 		}
 
@@ -110,29 +110,29 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Rain
-				.WithLabels("yearly", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("yearly", metrics)
 				.Set(metrics.YearlyRainIn.Value);
 		}
 	}
 
-	public void ProcessSolarRadiation(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessSolarRadiation(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.SolarRadiation.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.SolarRadiation
-				.WithLabels("solarradiation", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("solarradiation", metrics)
 				.Set(metrics.SolarRadiation.Value);
 		}
 	}
 
-	public void ProcessTemperature(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessTemperature(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.TempF.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("outdoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("outdoor", metrics)
 				.Set(metrics.TempF.Value);
 		}
 
@@ -140,7 +140,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("indoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("indoor", metrics)
 				.Set(metrics.TempInF.Value);
 		}
 
@@ -148,7 +148,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp1", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp1", metrics)
 				.Set(metrics.Temp1F.Value);
 		}
 
@@ -156,7 +156,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp2", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp2", metrics)
 				.Set(metrics.Temp2F.Value);
 		}
 
@@ -164,7 +164,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp3", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp3", metrics)
 				.Set(metrics.Temp3F.Value);
 		}
 
@@ -172,7 +172,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp4", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp4", metrics)
 				.Set(metrics.Temp4F.Value);
 		}
 
@@ -180,7 +180,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp5", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp5", metrics)
 				.Set(metrics.Temp5F.Value);
 		}
 
@@ -188,7 +188,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp6", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp6", metrics)
 				.Set(metrics.Temp6F.Value);
 		}
 
@@ -196,7 +196,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp7", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp7", metrics)
 				.Set(metrics.Temp7F.Value);
 		}
 
@@ -204,7 +204,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp8", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp8", metrics)
 				.Set(metrics.Temp8F.Value);
 		}
 
@@ -212,7 +212,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp9", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp9", metrics)
 				.Set(metrics.Temp9F.Value);
 		}
 
@@ -220,7 +220,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("temp10", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("temp10", metrics)
 				.Set(metrics.Temp10F.Value);
 		}
 
@@ -228,7 +228,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("pmIndoor", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("pmIndoor", metrics)
 				.Set(metrics.PM_In_Temp.Value);
 		}
 
@@ -236,7 +236,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp1", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp1", metrics)
 				.Set(metrics.SoilTemp1.Value);
 		}
 
@@ -244,7 +244,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp2", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp2", metrics)
 				.Set(metrics.SoilTemp2.Value);
 		}
 
@@ -252,7 +252,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp3", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp3", metrics)
 				.Set(metrics.SoilTemp3.Value);
 		}
 
@@ -260,7 +260,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp4", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp4", metrics)
 				.Set(metrics.SoilTemp4.Value);
 		}
 
@@ -268,7 +268,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp5", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp5", metrics)
 				.Set(metrics.SoilTemp5.Value);
 		}
 
@@ -276,7 +276,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp6", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp6", metrics)
 				.Set(metrics.SoilTemp6.Value);
 		}
 
@@ -284,7 +284,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp7", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp7", metrics)
 				.Set(metrics.SoilTemp7.Value);
 		}
 
@@ -292,7 +292,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp8", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp8", metrics)
 				.Set(metrics.SoilTemp8.Value);
 		}
 
@@ -300,7 +300,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp9", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp9", metrics)
 				.Set(metrics.SoilTemp9.Value);
 		}
 
@@ -308,29 +308,29 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.Temperature
-				.WithLabels("soilTemp10", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("soilTemp10", metrics)
 				.Set(metrics.SoilTemp10.Value);
 		}
 	}
 
-	public void ProcessUVIndex(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessUVIndex(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.UV.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.UVIndex
-				.WithLabels("uv", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("uv", metrics)
 				.Set(metrics.UV.Value);
 		}
 	}
 
-	public void ProcessWindDirection(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessWindDirection(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.WindDir.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindDirection
-				.WithLabels("wind", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("wind", metrics)
 				.Set(metrics.WindDir.Value);
 		}
 
@@ -338,7 +338,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindDirection
-				.WithLabels("gust", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("gust", metrics)
 				.Set(metrics.WindGustDir.Value);
 		}
 
@@ -346,7 +346,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindDirection
-				.WithLabels("2mAvg", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("2mAvg", metrics)
 				.Set(metrics.WindDir_Avg2m.Value);
 		}
 
@@ -354,18 +354,18 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindDirection
-				.WithLabels("10mAvg", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("10mAvg", metrics)
 				.Set(metrics.WindDir_Avg10m.Value);
 		}
 	}
 
-	public void ProcessWindSpeed(AmbientWeatherMetricsPostRequest metrics)
+	public void ProcessWindSpeed(IAmbientWeatherMetrics metrics)
 	{
 		if (metrics.WindSpeedMph.HasValue)
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindSpeed
-				.WithLabels("wind", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("wind", metrics)
 				.Set(metrics.WindSpeedMph.Value);
 		}
 
@@ -373,7 +373,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindSpeed
-				.WithLabels("gust", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("gust", metrics)
 				.Set(metrics.WindGustMph.Value);
 		}
 
@@ -381,7 +381,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindSpeed
-				.WithLabels("2mAvg", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("2mAvg", metrics)
 				.Set(metrics.WindSpdMph_Avg2m.Value);
 		}
 
@@ -389,7 +389,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindSpeed
-				.WithLabels("10mAvg", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("10mAvg", metrics)
 				.Set(metrics.WindSpdMph_Avg10m.Value);
 		}
 
@@ -397,7 +397,7 @@ public class PrometheusHandler : IMetricsHandler
 		{
 			AmbientWeatherPrometheusMetrics
 				.WindSpeed
-				.WithLabels("maxDailyGust", metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none")
+				.WithLabels("maxDailyGust", metrics)
 				.Set(metrics.MaxDailyGust.Value);
 		}
 	}
