@@ -1,4 +1,5 @@
 ﻿using Common.Contracts;
+using Common.Observe;
 
 namespace Core.MetricsHandlers.PrometheusMetrics;
 
@@ -6,6 +7,8 @@ public class PrometheusHandler : IMetricsHandler
 {
 	public Task ProcessAsync(IAmbientWeatherMetrics metrics)
 	{
+		using var trace = Tracing.Trace($"{nameof(PrometheusHandler)}.{nameof(ProcessAsync)}");
+		
 		ProcessDewPoint(metrics);
 		ProcessFeelsLike(metrics);
 		ProcessHumditiy(metrics);
