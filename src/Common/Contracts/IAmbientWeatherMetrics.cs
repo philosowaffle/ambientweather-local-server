@@ -19,7 +19,7 @@ public interface IAmbientWeatherMetrics
 	/// This can also be the mac address
 	/// </summary>
 	public string? PassKey { get; init; }
-	public DateTime DateUtc { get; init; }
+	public DateTime? DateUtc { get; init; }
 	/// <summary>
 	/// 0-360º instantaneous wind direction
 	/// </summary>
@@ -514,21 +514,21 @@ public interface IAmbientWeatherMetrics
 	/// Source: Cloud
 	/// if < 50ºF => Wind Chill, if > 68ºF => Heat Index (calculated on server)
 	/// </summary>
-	public double FeelsLike { get; init; }
-	public double FeelsLike1 { get; init; }
-	public double FeelsLike2 { get; init; }
-	public double FeelsLike3 { get; init; }
-	public double FeelsLike4 { get; init; }
-	public double FeelsLike5 { get; init; }
-	public double FeelsLike6 { get; init; }
-	public double FeelsLike7 { get; init; }
-	public double FeelsLike8 { get; init; }
-	public double FeelsLike9 { get; init; }
-	public double FeelsLike10 { get; init; }
+	public double? FeelsLike { get; init; }
+	public double? FeelsLike1 { get; init; }
+	public double? FeelsLike2 { get; init; }
+	public double? FeelsLike3 { get; init; }
+	public double? FeelsLike4 { get; init; }
+	public double? FeelsLike5 { get; init; }
+	public double? FeelsLike6 { get; init; }
+	public double? FeelsLike7 { get; init; }
+	public double? FeelsLike8 { get; init; }
+	public double? FeelsLike9 { get; init; }
+	public double? FeelsLike10 { get; init; }
 	/// <summary>
 	/// Indoor
 	/// </summary>
-	public double FeelsLikeIn { get; init; }
+	public double? FeelsLikeIn { get; init; }
 
 }
 

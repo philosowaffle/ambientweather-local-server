@@ -10,7 +10,7 @@ public record AmbientWeatherMetricsPostRequest : IAmbientWeatherMetrics
 	public string? Mac { get; init; }
 	public string? StationType { get; init; }
 	public string? PassKey { get; init; }
-	public DateTime DateUtc { get; init; }
+	public DateTime? DateUtc { get; init; }
 	public int? WindDir { get; init; }
 	public float? WindSpeedMph { get; init; }
 	public float? WindGustMph { get; init; }
@@ -154,16 +154,16 @@ public record AmbientWeatherMetricsPostRequest : IAmbientWeatherMetrics
 	public double? DewPoint9 { get; init; }
 	public double? DewPoint10 { get; init; }
 	public double? DewPointIn { get; init; }
-	public double FeelsLike { get; init; }
-	public double FeelsLike1 { get; init; }
-	public double FeelsLike2 { get; init; }
-	public double FeelsLike3 { get; init; }
-	public double FeelsLike4 { get; init; }
-	public double FeelsLike5 { get; init; }
-	public double FeelsLike6 { get; init; }
-	public double FeelsLike7 { get; init; }
-	public double FeelsLike8 { get; init; }
-	public double FeelsLike9 { get; init; }
-	public double FeelsLike10 { get; init; }
-	public double FeelsLikeIn { get; init; }
+	public double? FeelsLike { get; init; }
+	public double? FeelsLike1 { get; init; }
+	public double? FeelsLike2 { get; init; }
+	public double? FeelsLike3 { get; init; }
+	public double? FeelsLike4 { get; init; }
+	public double? FeelsLike5 { get; init; }
+	public double? FeelsLike6 { get; init; }
+	public double? FeelsLike7 { get; init; }
+	public double? FeelsLike8 { get; init; }
+	public double? FeelsLike9 { get; init; }
+	public double? FeelsLike10 { get; init; }
+	public double? FeelsLikeIn { get; init; }
 }

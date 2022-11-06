@@ -46,9 +46,19 @@ public static class AmbientWeatherPrometheusMetrics
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
 	});
 
+	public static readonly Gauge FeelsLike = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_feelslike_f", "Gauge of Feels Like Temperature in Fahrenheit", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+
+	public static readonly Gauge DewPoint = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_dewpoint_f", "Gauge of Dew Point Temperature in Fahrenheit", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+
 	public static TChild WithLabels<TChild>(this Collector<TChild> collector, string type, IAmbientWeatherMetrics metrics)
 		where TChild : Prometheus.ChildBase
 	{
-		return collector.WithLabels(type, metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none", Enum.GetName(metrics.Source) ?? "Unknown");
+		return collector.WithLabels(type, metrics.Mac ?? metrics.PassKey ?? "none", metrics.StationType ?? "none", Enum.GetName(metrics.Source)?.ToLower() ?? "Unknown");
 	}
 }

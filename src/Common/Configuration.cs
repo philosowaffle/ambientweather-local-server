@@ -17,15 +17,21 @@ public static class ConfigurationSetup
 	{
 		if (!settings.EnrichFromAmbientWeatherNetwork) return true;
 
-		if (string.IsNullOrEmpty(settings.ApplicationKey))
+		if (string.IsNullOrWhiteSpace(settings.ApplicationKey))
 		{
 			Log.Error("ApplicationKey is required for enriching from the AmbientWeather Network");
 			return false;
 		}
 
-		if (string.IsNullOrEmpty(settings.UserApiKey))
+		if (string.IsNullOrWhiteSpace(settings.UserApiKey))
 		{
 			Log.Error("UserApiKey is required for enriching from the AmbientWeather Network");
+			return false;
+		}
+
+		if (settings.PollingFrequencySeconds <= 0)
+		{
+			Log.Error("PollingFrequencySeconds must be greater than 0 seconds for enriching from the AmbientWeather Network");
 			return false;
 		}
 

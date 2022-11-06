@@ -1,4 +1,5 @@
-﻿using Common.Observe;
+﻿using Common;
+using Common.Observe;
 using Core.MetricsHandlers;
 using Core.Settings;
 using Microsoft.Extensions.Hosting;
@@ -31,18 +32,20 @@ public class AWNBackgroundCollector : BackgroundService
 		{
 			var settings = await _settingsService.GetSettingsAsync();
 
-			if (!settings.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork)
+			if (!settings.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork
+				|| !settings.AmbientWeatherSettings.IsValid())
 				return;
 
-			var apiKey = settings.AmbientWeatherSettings.UserApiKey;
-			var applicationKey = settings.AmbientWeatherSettings.ApplicationKey;
+			var apiKey = settings.AmbientWeatherSettings.UserApiKey!;
+			var applicationKey = settings.AmbientWeatherSettings.ApplicationKey!;
 			var frequency = settings.AmbientWeatherSettings.PollingFrequencySeconds;
+
 			while (!cancellationToken.IsCancellationRequested)
 			{
-				var data = await _client.GetLatestFromDevicesAsync(apiKey, applicationKey);
+				var deviceData = await _client.GetLatestFromDevicesAsync(apiKey, applicationKey);
 
 				var tasks = new List<Task>(_metricsHandlers.Count());
-				foreach (var device in data)
+				foreach (var device in deviceData)
 				{
 					if (device is null || device.LastData is null) continue;
 					foreach (var handler in _metricsHandlers)

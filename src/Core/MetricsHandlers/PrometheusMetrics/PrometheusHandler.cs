@@ -6,6 +6,8 @@ public class PrometheusHandler : IMetricsHandler
 {
 	public Task ProcessAsync(IAmbientWeatherMetrics metrics)
 	{
+		ProcessDewPoint(metrics);
+		ProcessFeelsLike(metrics);
 		ProcessHumditiy(metrics);
 		ProcessLowBattery(metrics);
 		ProcessRain(metrics);
@@ -401,5 +403,203 @@ public class PrometheusHandler : IMetricsHandler
 				.Set(metrics.MaxDailyGust.Value);
 		}
 	}
-	
+
+	public void ProcessFeelsLike(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.FeelsLike.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("outdoor", metrics)
+				.Set(metrics.FeelsLike.Value);
+		}
+		
+		if (metrics.FeelsLikeIn.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("indoor", metrics)
+				.Set(metrics.FeelsLikeIn.Value);
+		}
+
+		if (metrics.FeelsLike1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_01", metrics)
+				.Set(metrics.FeelsLike1.Value);
+		}
+
+		if (metrics.FeelsLike2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_02", metrics)
+				.Set(metrics.FeelsLike2.Value);
+		}
+
+		if (metrics.FeelsLike3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_03", metrics)
+				.Set(metrics.FeelsLike3.Value);
+		}
+
+		if (metrics.FeelsLike4.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_04", metrics)
+				.Set(metrics.FeelsLike4.Value);
+		}
+
+		if (metrics.FeelsLike5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_05", metrics)
+				.Set(metrics.FeelsLike5.Value);
+		}
+
+		if (metrics.FeelsLike6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_06", metrics)
+				.Set(metrics.FeelsLike6.Value);
+		}
+
+		if (metrics.FeelsLike7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_07", metrics)
+				.Set(metrics.FeelsLike7.Value);
+		}
+
+		if (metrics.FeelsLike8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_08", metrics)
+				.Set(metrics.FeelsLike8.Value);
+		}
+
+		if (metrics.FeelsLike9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_09", metrics)
+				.Set(metrics.FeelsLike9.Value);
+		}
+
+		if (metrics.FeelsLike10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.FeelsLike
+				.WithLabels("sensor_10", metrics)
+				.Set(metrics.FeelsLike10.Value);
+		}
+	}
+
+	public void ProcessDewPoint(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.DewPoint.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("outdoor", metrics)
+				.Set(metrics.DewPoint.Value);
+		}
+
+		if (metrics.DewPointIn.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("indoor", metrics)
+				.Set(metrics.DewPointIn.Value);
+		}
+
+		if (metrics.DewPoint1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_01", metrics)
+				.Set(metrics.DewPoint1.Value);
+		}
+
+		if (metrics.DewPoint2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_02", metrics)
+				.Set(metrics.DewPoint2.Value);
+		}
+
+		if (metrics.DewPoint3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_03", metrics)
+				.Set(metrics.DewPoint3.Value);
+		}
+
+		if (metrics.DewPoint4.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_04", metrics)
+				.Set(metrics.DewPoint4.Value);
+		}
+
+		if (metrics.DewPoint5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_05", metrics)
+				.Set(metrics.DewPoint5.Value);
+		}
+
+		if (metrics.DewPoint6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_06", metrics)
+				.Set(metrics.DewPoint6.Value);
+		}
+
+		if (metrics.DewPoint7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_07", metrics)
+				.Set(metrics.DewPoint7.Value);
+		}
+
+		if (metrics.DewPoint8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_08", metrics)
+				.Set(metrics.DewPoint8.Value);
+		}
+
+		if (metrics.DewPoint9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_09", metrics)
+				.Set(metrics.DewPoint9.Value);
+		}
+
+		if (metrics.DewPoint10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.DewPoint
+				.WithLabels("sensor_10", metrics)
+				.Set(metrics.DewPoint10.Value);
+		}
+	}
+
 }
