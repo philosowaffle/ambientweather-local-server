@@ -42,22 +42,30 @@ public class AWNBackgroundCollector : BackgroundService
 
 			while (!cancellationToken.IsCancellationRequested)
 			{
-				using (Tracing.Trace($"{nameof(AWNBackgroundCollector)}.{nameof(RunAsync)}"))
+				try
 				{
-					var deviceData = await _client.GetLatestFromDevicesAsync(apiKey, applicationKey);
-
-					var tasks = new List<Task>(_metricsHandlers.Count());
-					foreach (var device in deviceData)
+					using (Tracing.Trace($"{nameof(AWNBackgroundCollector)}.{nameof(RunAsync)}"))
 					{
-						if (device is null || device.LastData is null) continue;
-						foreach (var handler in _metricsHandlers)
-							tasks.Add(handler.ProcessAsync(device.LastData));
+						var deviceData = await _client.GetLatestFromDevicesAsync(apiKey, applicationKey);
+
+						var tasks = new List<Task>(_metricsHandlers.Count());
+						foreach (var device in deviceData)
+						{
+							if (device is null || device.LastData is null) continue;
+							foreach (var handler in _metricsHandlers)
+								tasks.Add(handler.ProcessAsync(device.LastData));
+						}
+
+						await Task.WhenAll(tasks);
 					}
-
-					await Task.WhenAll(tasks);
+				} catch (Exception e)
+				{
+					_logger.Error(e, "AWN Background Collector error.");
 				}
-
-				Thread.Sleep(frequency * 1000);
+				finally
+				{
+					Thread.Sleep(frequency * 1000);
+				}
 			}
 
 		} catch (Exception e)
