@@ -15,6 +15,9 @@ RUN groupadd -g 1017 awuser && useradd -g awuser -u 1017 awuser
 
 WORKDIR /app
 
+COPY --from=pyroscope/pyroscope:latest /usr/bin/pyroscope /usr/bin/pyroscope
+ENV PYROSCOPE_APPLICATION_NAME=ambientweather-api
+
 RUN mkdir -m770 {data}
 
 ###################
