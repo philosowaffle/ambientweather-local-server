@@ -6,7 +6,7 @@ chmod 770 -R /app
 
 if [[ "$1" == "api" ]]; then
     exec runuser -u awuser ./api/Api
-elif [["$1" == "pyroscope" && "$2" == "api"]] then
+elif [["$1" == "pyroscope" && "$2" == "api"]]; then
     echo Launching with Pyroscope
     pyroscope exec runuser -u awuser ./api/Api
 else
