@@ -6,9 +6,9 @@ chmod 770 -R /app
 
 if [[ "$1" == "api" ]]; then
     exec runuser -u awuser ./api/Api
-elif [["$1" == "pyroscope" && "$2" == "api"]]; then
+elif [[ "$1" == "pyroscope" ]]; then
     echo Launching with Pyroscope
-    pyroscope exec runuser -u awuser ./api/Api
+    exec runuser -u awuser pyroscope exec -spy-name dotnetspy ./api/Api
 else
    echo "Nothing to do."
 fi
