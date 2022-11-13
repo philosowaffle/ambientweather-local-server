@@ -31,7 +31,7 @@ public static class Metrics
 			.WithJitStats()
 			.WithThreadPoolStats()
 			.WithGcStats()
-			.WithExceptionStats(CaptureLevel.Verbose)
+			.WithExceptionStats(CaptureLevel.Errors)
 			.WithDebuggingMetrics(config.EnableDotNetRuntimeDebugMetrics)
 			.WithErrorHandler(ex => Log.Error(ex, "Unexpected exception occurred in prometheus-net.DotNetRuntime"))
 			.StartCollecting();
