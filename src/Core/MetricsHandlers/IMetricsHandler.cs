@@ -4,5 +4,5 @@ namespace Core.MetricsHandlers;
 
 public interface IMetricsHandler
 {
-	Task ProcessAsync(AmbientWeatherMetricsPostRequest metrics);
+	Task ProcessAsync(IAmbientWeatherMetrics metrics);
 }

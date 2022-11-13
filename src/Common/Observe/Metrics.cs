@@ -23,19 +23,18 @@ public static class Metrics
 
 	public static IDisposable? EnableCollector(Common.Metrics config)
 	{
-		if (config.Enabled)
-			return DotNetRuntimeStatsBuilder
-				.Customize()
-				.WithContentionStats()
-				.WithJitStats()
-				.WithThreadPoolStats()
-				.WithGcStats()
-				.WithExceptionStats()
-				//.WithDebuggingMetrics(true)
-				.WithErrorHandler(ex => Log.Error(ex, "Unexpected exception occurred in prometheus-net.DotNetRuntime"))
-				.StartCollecting();
+		if (!config.Enabled) return null;
 
-		return null;
+		return DotNetRuntimeStatsBuilder
+			.Customize()
+			.WithContentionStats()
+			.WithJitStats()
+			.WithThreadPoolStats()
+			.WithGcStats()
+			.WithExceptionStats(CaptureLevel.Errors)
+			.WithDebuggingMetrics(config.EnableDotNetRuntimeDebugMetrics)
+			.WithErrorHandler(ex => Log.Error(ex, "Unexpected exception occurred in prometheus-net.DotNetRuntime"))
+			.StartCollecting();
 	}
 }
 

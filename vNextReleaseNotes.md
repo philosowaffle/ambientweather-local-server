@@ -3,10 +3,14 @@
 
 ## Features
 
-- Receive data from an Ambient weather station via HTTP API and expose that data as OpenTelemetry metrics via `/metrics` API endpoint
-- [#2] Add MacAddress and StationType to prometheus metrics to help identify distinct stations
-- [#6] Sample Grafana dashboard provided in repo
+- [#1] Fetch additional metrics (such as 'Feels Like' temp) from AmbientWeather Network cloud
+	- New sample Grafana Dashboard in repo
+
+## Fixes
+
+- [#1] Decrease overall memory usage
 
 ## Changes
 
-- [#3] General overhaul and uplift to prepare for V1 release
+- General dependency version bumps
+- Docs updated

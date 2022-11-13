@@ -141,4 +141,16 @@ public static class Tracing
 			activity.SetTag("http.query", httpRequest.QueryString);
 		}
 	}
+
+	public static void StartNewActiviy(string activityName)
+	{
+		EndCurrentActivity();
+		Activity.Current = Source?.CreateActivity(activityName, ActivityKind.Server);
+	}
+
+	public static void EndCurrentActivity()
+	{
+		Activity.Current?.Dispose();
+		Activity.Current = null;
+	}
 }

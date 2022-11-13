@@ -1,8 +1,10 @@
 ﻿using Common;
 using Common.Observe;
+using Core.AmbientWeatherNetwork;
 using Core.GitHub;
 using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
+using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Prometheus;
 using Serilog;
@@ -40,6 +42,13 @@ builder.Host.UseSerilog((ctx, logConfig) =>
 	.Enrich.FromLogContext();
 });
 
+if (config.AmbientWeatherSettings.EnrichFromAmbientWeatherNetwork
+	&& config.AmbientWeatherSettings.IsValid())
+{
+	builder.Host.ConfigureServices(services => services.AddHostedService<AWNBackgroundCollector>());
+}
+	
+
 ///////////////////////////////////////////////////////////
 /// SERVICES
 ///////////////////////////////////////////////////////////
@@ -58,11 +67,14 @@ builder.Services.AddSwaggerGen(c =>
 		c.IncludeXmlComments(docPath);
 });
 
+// AWN API
+builder.Services.AddSingleton<IApiClient, Core.AmbientWeatherNetwork.ApiClient>();
+
 // CACHE
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 // GITHUB
-builder.Services.AddSingleton<IGitHubApiClient, ApiClient>();
+builder.Services.AddSingleton<IGitHubApiClient, Core.GitHub.ApiClient>();
 builder.Services.AddSingleton<IGitHubService, GitHubService>();
 
 // HANDLERS
@@ -70,6 +82,9 @@ builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
 
 // IO & CONFIG
 builder.Services.AddSingleton<IIoWrapper, IoWrapper>();
+
+// SETTINGS
+builder.Services.AddSingleton<ISettingsService, FileBasedSettingsService>();
 
 Log.Logger = new LoggerConfiguration()
 				.ReadFrom.Configuration(builder.Configuration, sectionName: $"{nameof(Observability)}:Serilog")

@@ -1,4 +1,11 @@
 {
+  "AmbientWeather": {
+    "EnrichFromAmbientWeatherNetwork": true,
+    "UserApiKey": "<your api key>",
+    "ApplicationKey": "<your application key>",
+    "PollingFrequencySeconds": 60
+  },
+
   "Observability": {
 
     "Metrics": {
