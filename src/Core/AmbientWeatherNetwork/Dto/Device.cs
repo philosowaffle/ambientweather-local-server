@@ -5,7 +5,7 @@ public record Device : IAmbientWeatherMetrics
 {
 	public Source Source => Source.Cloud;
 
-	public Device(string? mac, string? stationType, string? passKey, long? dateUtc, int? windDir, float? windSpeedMph, float? windGustMph, int? windGustDir, float? maxDailyGust, float? windSpdMph_Avg2m, int? windDir_Avg2m, float? windSpdMph_Avg10m, int? windDir_Avg10m, int? windGustMph_Interval, int? humidity, int? humidityIn, int? humidity1, int? humidity2, int? humidity3, int? humidity4, int? humidity5, int? humidity6, int? humidity7, int? humidity8, int? humidity9, int? humidity10, float? tempF, float? tempInF, float? temp1F, float? temp2F, float? temp3F, float? temp4F, float? temp5F, float? temp6F, float? temp7F, float? temp8F, float? temp9F, float? temp10F, float? hourlyRainIn, float? dailyRainIn, float? twentyFourHourRainIn, float? weeklyRainIn, float? monthlyRainIn, float? yearlyRainIn, float? eventRainIn, float? totalRain, float? baromRelIn, float? baromAbsIn, int? uV, float? solarRadiation, int? cO2, int? pM25, float? pM25_24h, int? pM25_In, float? pM25_In_24h, int? pM10_In, float? pM10_In_24h, int? cO2_In, float? cO2_In_24h, float? pM_In_Temp, int? pM_In_Humidity, BoolEnum? relay1, BoolEnum? relay2, BoolEnum? relay3, BoolEnum? relay4, BoolEnum? relay5, BoolEnum? relay6, BoolEnum? relay7, BoolEnum? relay8, BoolEnum? relay9, BoolEnum? relay10, float? soilTemp1, float? soilTemp2, float? soilTemp3, float? soilTemp4, float? soilTemp5, float? soilTemp6, float? soilTemp7, float? soilTemp8, float? soilTemp9, float? soilTemp10, int? soilHum1, int? soilHum2, int? soilHum3, int? soilHum4, int? soilHum5, int? soilHum6, int? soilHum7, int? soilHum8, int? soilHum9, int? soilHum10, LeakSensorState? leak1, LeakSensorState? leak2, LeakSensorState? leak3, LeakSensorState? leak4, long? lightning_Time, int? lightning_Day, BoolEnum? lightning_Distance, BoolEnum? lowBattery, BoolEnum? normalBattery, BoolEnum? battOut, BoolEnum? battIn, BoolEnum? batt1, BoolEnum? batt2, BoolEnum? batt3, BoolEnum? batt4, BoolEnum? batt5, BoolEnum? batt6, BoolEnum? batt7, BoolEnum? batt8, BoolEnum? batt9, BoolEnum? batt10, BoolEnum? battR1, BoolEnum? battR2, BoolEnum? battR3, BoolEnum? battR4, BoolEnum? battR5, BoolEnum? battR6, BoolEnum? battR7, BoolEnum? battR8, BoolEnum? battR9, BoolEnum? battR10, BoolEnum? batt_25, BoolEnum? batt_25In, BoolEnum? batLeak1, BoolEnum? batLeak2, BoolEnum? batLeak3, BoolEnum? batLeak4, BoolEnum? batt_Lightning, BoolEnum? battSM1, BoolEnum? battSM2, BoolEnum? battSM3, BoolEnum? battSM4, BoolEnum? battRain, BoolEnum? batt_Co2, double? dewPoint, double? dewPoint1, double? dewPoint2, double? dewPoint3, double? dewPoint4, double? dewPoint5, double? dewPoint6, double? dewPoint7, double? dewPoint8, double? dewPoint9, double? dewPoint10, double? dewPointIn, double? feelsLike, double? feelsLike1, double? feelsLike2, double? feelsLike3, double? feelsLike4, double? feelsLike5, double? feelsLike6, double? feelsLike7, double? feelsLike8, double? feelsLike9, double? feelsLike10, double? feelsLikeIn)
+	public Device(string? mac, string? stationType, string? passKey, long? dateUtc, short? windDir, float? windSpeedMph, float? windGustMph, short? windGustDir, float? maxDailyGust, float? windSpdMph_Avg2m, short? windDir_Avg2m, float? windSpdMph_Avg10m, short? windDir_Avg10m, short? windGustMph_Interval, short? humidity, short? humidityIn, short? humidity1, short? humidity2, short? humidity3, short? humidity4, short? humidity5, short? humidity6, short? humidity7, short? humidity8, short? humidity9, short? humidity10, float? tempF, float? tempInF, float? temp1F, float? temp2F, float? temp3F, float? temp4F, float? temp5F, float? temp6F, float? temp7F, float? temp8F, float? temp9F, float? temp10F, float? hourlyRainIn, float? dailyRainIn, float? twentyFourHourRainIn, float? weeklyRainIn, float? monthlyRainIn, float? yearlyRainIn, float? eventRainIn, float? totalRain, float? baromRelIn, float? baromAbsIn, short? uV, float? solarRadiation, short? cO2, short? pM25, float? pM25_24h, short? pM25_In, float? pM25_In_24h, short? pM10_In, float? pM10_In_24h, short? cO2_In, float? cO2_In_24h, float? pM_In_Temp, short? pM_In_Humidity, BoolEnum? relay1, BoolEnum? relay2, BoolEnum? relay3, BoolEnum? relay4, BoolEnum? relay5, BoolEnum? relay6, BoolEnum? relay7, BoolEnum? relay8, BoolEnum? relay9, BoolEnum? relay10, float? soilTemp1, float? soilTemp2, float? soilTemp3, float? soilTemp4, float? soilTemp5, float? soilTemp6, float? soilTemp7, float? soilTemp8, float? soilTemp9, float? soilTemp10, short? soilHum1, short? soilHum2, short? soilHum3, short? soilHum4, short? soilHum5, short? soilHum6, short? soilHum7, short? soilHum8, short? soilHum9, short? soilHum10, LeakSensorState? leak1, LeakSensorState? leak2, LeakSensorState? leak3, LeakSensorState? leak4, ulong? lightning_Time, short? lightning_Day, BoolEnum? lightning_Distance, BoolEnum? lowBattery, BoolEnum? normalBattery, BoolEnum? battOut, BoolEnum? battIn, BoolEnum? batt1, BoolEnum? batt2, BoolEnum? batt3, BoolEnum? batt4, BoolEnum? batt5, BoolEnum? batt6, BoolEnum? batt7, BoolEnum? batt8, BoolEnum? batt9, BoolEnum? batt10, BoolEnum? battR1, BoolEnum? battR2, BoolEnum? battR3, BoolEnum? battR4, BoolEnum? battR5, BoolEnum? battR6, BoolEnum? battR7, BoolEnum? battR8, BoolEnum? battR9, BoolEnum? battR10, BoolEnum? batt_25, BoolEnum? batt_25In, BoolEnum? batLeak1, BoolEnum? batLeak2, BoolEnum? batLeak3, BoolEnum? batLeak4, BoolEnum? batt_Lightning, BoolEnum? battSM1, BoolEnum? battSM2, BoolEnum? battSM3, BoolEnum? battSM4, BoolEnum? battRain, BoolEnum? batt_Co2, float? dewPoint, float? dewPoint1, float? dewPoint2, float? dewPoint3, float? dewPoint4, float? dewPoint5, float? dewPoint6, float? dewPoint7, float? dewPoint8, float? dewPoint9, float? dewPoint10, float? dewPointIn, float? feelsLike, float? feelsLike1, float? feelsLike2, float? feelsLike3, float? feelsLike4, float? feelsLike5, float? feelsLike6, float? feelsLike7, float? feelsLike8, float? feelsLike9, float? feelsLike10, float? feelsLikeIn)
 	{
 		Mac = mac;
 		StationType = stationType;
@@ -176,28 +176,28 @@ public record Device : IAmbientWeatherMetrics
 	public string? PassKey { get; init; }
 	public DateTime? DateUtc { get; init; }
 
-	public int? WindDir { get; init; }
+	public short? WindDir { get; init; }
 	public float? WindSpeedMph { get; init; }
 	public float? WindGustMph { get; init; }
-	public int? WindGustDir { get; init; }
+	public short? WindGustDir { get; init; }
 	public float? MaxDailyGust { get; init; }
 	public float? WindSpdMph_Avg2m { get; init; }
-	public int? WindDir_Avg2m { get; init; }
+	public short? WindDir_Avg2m { get; init; }
 	public float? WindSpdMph_Avg10m { get; init; }
-	public int? WindDir_Avg10m { get; init; }
-	public int? WindGustMph_Interval { get; init; }
-	public int? Humidity { get; init; }
-	public int? HumidityIn { get; init; }
-	public int? Humidity1 { get; init; }
-	public int? Humidity2 { get; init; }
-	public int? Humidity3 { get; init; }
-	public int? Humidity4 { get; init; }
-	public int? Humidity5 { get; init; }
-	public int? Humidity6 { get; init; }
-	public int? Humidity7 { get; init; }
-	public int? Humidity8 { get; init; }
-	public int? Humidity9 { get; init; }
-	public int? Humidity10 { get; init; }
+	public short? WindDir_Avg10m { get; init; }
+	public short? WindGustMph_Interval { get; init; }
+	public short? Humidity { get; init; }
+	public short? HumidityIn { get; init; }
+	public short? Humidity1 { get; init; }
+	public short? Humidity2 { get; init; }
+	public short? Humidity3 { get; init; }
+	public short? Humidity4 { get; init; }
+	public short? Humidity5 { get; init; }
+	public short? Humidity6 { get; init; }
+	public short? Humidity7 { get; init; }
+	public short? Humidity8 { get; init; }
+	public short? Humidity9 { get; init; }
+	public short? Humidity10 { get; init; }
 	public float? TempF { get; init; }
 	public float? TempInF { get; init; }
 	public float? Temp1F { get; init; }
@@ -220,19 +220,19 @@ public record Device : IAmbientWeatherMetrics
 	public float? TotalRain { get; init; }
 	public float? BaromRelIn { get; init; }
 	public float? BaromAbsIn { get; init; }
-	public int? UV { get; init; }
+	public short? UV { get; init; }
 	public float? SolarRadiation { get; init; }
-	public int? CO2 { get; init; }
-	public int? PM25 { get; init; }
+	public short? CO2 { get; init; }
+	public short? PM25 { get; init; }
 	public float? PM25_24h { get; init; }
-	public int? PM25_In { get; init; }
+	public short? PM25_In { get; init; }
 	public float? PM25_In_24h { get; init; }
-	public int? PM10_In { get; init; }
+	public short? PM10_In { get; init; }
 	public float? PM10_In_24h { get; init; }
-	public int? CO2_In { get; init; }
+	public short? CO2_In { get; init; }
 	public float? CO2_In_24h { get; init; }
 	public float? PM_In_Temp { get; init; }
-	public int? PM_In_Humidity { get; init; }
+	public short? PM_In_Humidity { get; init; }
 	public BoolEnum? Relay1 { get; init; }
 	public BoolEnum? Relay2 { get; init; }
 	public BoolEnum? Relay3 { get; init; }
@@ -253,22 +253,22 @@ public record Device : IAmbientWeatherMetrics
 	public float? SoilTemp8 { get; init; }
 	public float? SoilTemp9 { get; init; }
 	public float? SoilTemp10 { get; init; }
-	public int? SoilHum1 { get; init; }
-	public int? SoilHum2 { get; init; }
-	public int? SoilHum3 { get; init; }
-	public int? SoilHum4 { get; init; }
-	public int? SoilHum5 { get; init; }
-	public int? SoilHum6 { get; init; }
-	public int? SoilHum7 { get; init; }
-	public int? SoilHum8 { get; init; }
-	public int? SoilHum9 { get; init; }
-	public int? SoilHum10 { get; init; }
+	public short? SoilHum1 { get; init; }
+	public short? SoilHum2 { get; init; }
+	public short? SoilHum3 { get; init; }
+	public short? SoilHum4 { get; init; }
+	public short? SoilHum5 { get; init; }
+	public short? SoilHum6 { get; init; }
+	public short? SoilHum7 { get; init; }
+	public short? SoilHum8 { get; init; }
+	public short? SoilHum9 { get; init; }
+	public short? SoilHum10 { get; init; }
 	public LeakSensorState? Leak1 { get; init; }
 	public LeakSensorState? Leak2 { get; init; }
 	public LeakSensorState? Leak3 { get; init; }
 	public LeakSensorState? Leak4 { get; init; }
-	public long? Lightning_Time { get; init; }
-	public int? Lightning_Day { get; init; }
+	public ulong? Lightning_Time { get; init; }
+	public short? Lightning_Day { get; init; }
 	public BoolEnum? Lightning_Distance { get; init; }
 	public BoolEnum? LowBattery { get; init; }
 	public BoolEnum? NormalBattery { get; init; }
@@ -307,28 +307,28 @@ public record Device : IAmbientWeatherMetrics
 	public BoolEnum? BattSM4 { get; init; }
 	public BoolEnum? BattRain { get; init; }
 	public BoolEnum? Batt_Co2 { get; init; }
-	public double? DewPoint { get; init; }
-	public double? DewPoint1 { get; init; }
-	public double? DewPoint2 { get; init; }
-	public double? DewPoint3 { get; init; }
-	public double? DewPoint4 { get; init; }
-	public double? DewPoint5 { get; init; }
-	public double? DewPoint6 { get; init; }
-	public double? DewPoint7 { get; init; }
-	public double? DewPoint8 { get; init; }
-	public double? DewPoint9 { get; init; }
-	public double? DewPoint10 { get; init; }
-	public double? DewPointIn { get; init; }
-	public double? FeelsLike { get; init; }
-	public double? FeelsLike1 { get; init; }
-	public double? FeelsLike2 { get; init; }
-	public double? FeelsLike3 { get; init; }
-	public double? FeelsLike4 { get; init; }
-	public double? FeelsLike5 { get; init; }
-	public double? FeelsLike6 { get; init; }
-	public double? FeelsLike7 { get; init; }
-	public double? FeelsLike8 { get; init; }
-	public double? FeelsLike9 { get; init; }
-	public double? FeelsLike10 { get; init; }
-	public double? FeelsLikeIn { get; init; }
+	public float? DewPoint { get; init; }
+	public float? DewPoint1 { get; init; }
+	public float? DewPoint2 { get; init; }
+	public float? DewPoint3 { get; init; }
+	public float? DewPoint4 { get; init; }
+	public float? DewPoint5 { get; init; }
+	public float? DewPoint6 { get; init; }
+	public float? DewPoint7 { get; init; }
+	public float? DewPoint8 { get; init; }
+	public float? DewPoint9 { get; init; }
+	public float? DewPoint10 { get; init; }
+	public float? DewPointIn { get; init; }
+	public float? FeelsLike { get; init; }
+	public float? FeelsLike1 { get; init; }
+	public float? FeelsLike2 { get; init; }
+	public float? FeelsLike3 { get; init; }
+	public float? FeelsLike4 { get; init; }
+	public float? FeelsLike5 { get; init; }
+	public float? FeelsLike6 { get; init; }
+	public float? FeelsLike7 { get; init; }
+	public float? FeelsLike8 { get; init; }
+	public float? FeelsLike9 { get; init; }
+	public float? FeelsLike10 { get; init; }
+	public float? FeelsLikeIn { get; init; }
 }

@@ -23,7 +23,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// 0-360º instantaneous wind direction
 	/// </summary>
-	public int? WindDir { get; init; }
+	public short? WindDir { get; init; }
 	/// <summary>
 	/// instantaneous wind speed
 	/// </summary>
@@ -35,7 +35,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Wind direction at which the wind gust occurred, 0-360º
 	/// </summary>
-	public int? WindGustDir { get; init; }
+	public short? WindGustDir { get; init; }
 	/// <summary>
 	/// MPH
 	/// </summary>
@@ -47,7 +47,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Average wind direction, 2 minute average, 0-360deg
 	/// </summary>
-	public int? WindDir_Avg2m { get; init; }
+	public short? WindDir_Avg2m { get; init; }
 	/// <summary>
 	/// Average wind speed, 10 minute average
 	/// </summary>
@@ -55,59 +55,59 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Average wind direction, 10 minute average, 0-360deg
 	/// </summary>
-	public int? WindDir_Avg10m { get; init; }
+	public short? WindDir_Avg10m { get; init; }
 	/// <summary>
-	/// Max Wind Speed in update interval, the default is one minute
+	/// Max Wind Speed in update shorterval, the default is one minute
 	/// </summary>
-	public int? WindGustMph_Interval { get; init; }
+	public short? WindGustMph_Interval { get; init; }
 	/// <summary>
 	/// Outdoor Humidity, 0-100%
 	/// </summary>
-	public int? Humidity { get; init; }
+	public short? Humidity { get; init; }
 	/// <summary>
 	/// Indoor Humidity, 0-100%
 	/// </summary>
-	public int? HumidityIn { get; init; }
+	public short? HumidityIn { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity1 { get; init; }
+	public short? Humidity1 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity2 { get; init; }
+	public short? Humidity2 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity3 { get; init; }
+	public short? Humidity3 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity4 { get; init; }
+	public short? Humidity4 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity5 { get; init; }
+	public short? Humidity5 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity6 { get; init; }
+	public short? Humidity6 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity7 { get; init; }
+	public short? Humidity7 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity8 { get; init; }
+	public short? Humidity8 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity9 { get; init; }
+	public short? Humidity9 { get; init; }
 	/// <summary>
 	/// Humidity, 0-100%
 	/// </summary>
-	public int? Humidity10 { get; init; }
+	public short? Humidity10 { get; init; }
 	/// <summary>
 	/// Outdoor Temperature
 	/// </summary>
@@ -182,7 +182,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Ultra-Violet Radiation Index
 	/// </summary>
-	public int? UV { get; init; }
+	public short? UV { get; init; }
 	/// <summary>
 	/// W/m^2
 	/// </summary>
@@ -190,11 +190,11 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// ppm
 	/// </summary>
-	public int? CO2 { get; init; }
+	public short? CO2 { get; init; }
 	/// <summary>
 	/// PM2.5 Air Quality Sensor - µg/m3
 	/// </summary>
-	public int? PM25 { get; init; }
+	public short? PM25 { get; init; }
 	/// <summary>
 	/// PM2.5 Air Quality Sensor, 24 hour running average - µg/m3
 	/// </summary>
@@ -202,7 +202,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// PM2.5 Air Quality Sensor, indoor - µg/m3
 	/// </summary>
-	public int? PM25_In { get; init; }
+	public short? PM25_In { get; init; }
 	/// <summary>
 	/// PM2.5 Air Quality Sensor indoor, 24 hour running average - µg/m3
 	/// </summary>
@@ -210,7 +210,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// PM1.0 Air Quality Sensor - µg/m3
 	/// </summary>
-	public int? PM10_In { get; init; }
+	public short? PM10_In { get; init; }
 	/// <summary>
 	/// PM1.0 Air Quality Sensor, 24 hour running average - µg/m3
 	/// </summary>
@@ -218,7 +218,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Indoor CO2 - ppm
 	/// </summary>
-	public int? CO2_In { get; init; }
+	public short? CO2_In { get; init; }
 	/// <summary>
 	/// Indoor CO2, 24 hour running average - ppm
 	/// </summary>
@@ -230,7 +230,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Indoor PM sensor humidity - %
 	/// </summary>
-	public int? PM_In_Humidity { get; init; }
+	public short? PM_In_Humidity { get; init; }
 	public BoolEnum? Relay1 { get; init; }
 	public BoolEnum? Relay2 { get; init; }
 	public BoolEnum? Relay3 { get; init; }
@@ -284,43 +284,43 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum1 { get; init; }
+	public short? SoilHum1 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum2 { get; init; }
+	public short? SoilHum2 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum3 { get; init; }
+	public short? SoilHum3 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum4 { get; init; }
+	public short? SoilHum4 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum5 { get; init; }
+	public short? SoilHum5 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum6 { get; init; }
+	public short? SoilHum6 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum7 { get; init; }
+	public short? SoilHum7 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum8 { get; init; }
+	public short? SoilHum8 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum9 { get; init; }
+	public short? SoilHum9 { get; init; }
 	/// <summary>
 	/// Soil Moisture - %
 	/// </summary>
-	public int? SoilHum10 { get; init; }
+	public short? SoilHum10 { get; init; }
 	/// <summary>
 	/// Leak Detection
 	/// </summary>
@@ -341,11 +341,11 @@ public interface IAmbientWeatherMetrics
 	/// Last strike date and time 	
 	/// Seconds since January 1, 1970
 	/// </summary>
-	public long? Lightning_Time { get; init; }
+	public ulong? Lightning_Time { get; init; }
 	/// <summary>
 	/// Number of strikes per day
 	/// </summary>
-	public int? Lightning_Day { get; init; }
+	public short? Lightning_Day { get; init; }
 	/// <summary>
 	/// Distance of last strike - km
 	/// </summary>
@@ -493,60 +493,60 @@ public interface IAmbientWeatherMetrics
 
 	/// <summary>
 	/// Source: Cloud
-	/// Dew Point in F
+	/// Dew Poshort in F
 	/// </summary>
-	public double? DewPoint { get; init; }
-	public double? DewPoint1 { get; init; }
-	public double? DewPoint2 { get; init; }
-	public double? DewPoint3 { get; init; }
-	public double? DewPoint4 { get; init; }
-	public double? DewPoint5 { get; init; }
-	public double? DewPoint6 { get; init; }
-	public double? DewPoint7 { get; init; }
-	public double? DewPoint8 { get; init; }
-	public double? DewPoint9 { get; init; }
-	public double? DewPoint10 { get; init; }
+	public float? DewPoint { get; init; }
+	public float? DewPoint1 { get; init; }
+	public float? DewPoint2 { get; init; }
+	public float? DewPoint3 { get; init; }
+	public float? DewPoint4 { get; init; }
+	public float? DewPoint5 { get; init; }
+	public float? DewPoint6 { get; init; }
+	public float? DewPoint7 { get; init; }
+	public float? DewPoint8 { get; init; }
+	public float? DewPoint9 { get; init; }
+	public float? DewPoint10 { get; init; }
 	/// <summary>
 	/// Indoor
 	/// </summary>
-	public double? DewPointIn { get; init; }
+	public float? DewPointIn { get; init; }
 	/// <summary>
 	/// Source: Cloud
 	/// if < 50ºF => Wind Chill, if > 68ºF => Heat Index (calculated on server)
 	/// </summary>
-	public double? FeelsLike { get; init; }
-	public double? FeelsLike1 { get; init; }
-	public double? FeelsLike2 { get; init; }
-	public double? FeelsLike3 { get; init; }
-	public double? FeelsLike4 { get; init; }
-	public double? FeelsLike5 { get; init; }
-	public double? FeelsLike6 { get; init; }
-	public double? FeelsLike7 { get; init; }
-	public double? FeelsLike8 { get; init; }
-	public double? FeelsLike9 { get; init; }
-	public double? FeelsLike10 { get; init; }
+	public float? FeelsLike { get; init; }
+	public float? FeelsLike1 { get; init; }
+	public float? FeelsLike2 { get; init; }
+	public float? FeelsLike3 { get; init; }
+	public float? FeelsLike4 { get; init; }
+	public float? FeelsLike5 { get; init; }
+	public float? FeelsLike6 { get; init; }
+	public float? FeelsLike7 { get; init; }
+	public float? FeelsLike8 { get; init; }
+	public float? FeelsLike9 { get; init; }
+	public float? FeelsLike10 { get; init; }
 	/// <summary>
 	/// Indoor
 	/// </summary>
-	public double? FeelsLikeIn { get; init; }
+	public float? FeelsLikeIn { get; init; }
 
 }
 
-public enum Source
+public enum Source : byte
 {
 	Unknown = 0,
 	Local = 1,
 	Cloud = 2
 }
 
-public enum LeakSensorState
+public enum LeakSensorState : byte
 {
 	NoLeak = 0,
 	Leak = 1,
 	LossOfCommunication = 2, // for over 10 minutes
 }
 
-public enum BoolEnum
+public enum BoolEnum : byte
 {
 	False = 0,
 	True = 1

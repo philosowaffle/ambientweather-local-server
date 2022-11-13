@@ -75,7 +75,7 @@ public class AmbientWeatherSettings
 	public bool EnrichFromAmbientWeatherNetwork { get; set; }
 	public string? UserApiKey { get; set; }
 	public string? ApplicationKey { get; set; }
-	public int PollingFrequencySeconds { get; set; } = 60;
+	public ushort PollingFrequencySeconds { get; set; } = 60;
 }
 
 public class Observability
@@ -99,7 +99,7 @@ public class Traces
 
 	public bool Enabled { get; set; }
 	public string AgentHost { get; set; }
-	public int? AgentPort { get; set; }
+	public ushort? AgentPort { get; set; }
 }
 
 public class Metrics

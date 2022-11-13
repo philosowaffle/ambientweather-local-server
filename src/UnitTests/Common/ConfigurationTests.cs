@@ -64,21 +64,20 @@ public class ConfigurationTests
 		config.Developer.Should().NotBeNull();
 	}
 
-	[TestCase(false, 0, null, null, ExpectedResult = true)]
-	[TestCase(true, 0, null, null, ExpectedResult = false)]
-	[TestCase(true, 10, "key", "key", ExpectedResult = true)]
+	[TestCase(false, (ushort)0, null, null, ExpectedResult = true)]
+	[TestCase(true, (ushort)0, null, null, ExpectedResult = false)]
+	[TestCase(true, (ushort)10, "key", "key", ExpectedResult = true)]
 
-	[TestCase(true, 10, null, "key", ExpectedResult = false)]
-	[TestCase(true, 10, "", "key", ExpectedResult = false)]
-	[TestCase(true, 10, " ", "key", ExpectedResult = false)]
+	[TestCase(true, (ushort)10, null, "key", ExpectedResult = false)]
+	[TestCase(true, (ushort)10, "", "key", ExpectedResult = false)]
+	[TestCase(true, (ushort)10, " ", "key", ExpectedResult = false)]
 
-	[TestCase(true, 10, "key", null, ExpectedResult = false)]
-	[TestCase(true, 10, "key", "", ExpectedResult = false)]
-	[TestCase(true, 10, "key", " ", ExpectedResult = false)]
+	[TestCase(true, (ushort)10, "key", null, ExpectedResult = false)]
+	[TestCase(true, (ushort)10, "key", "", ExpectedResult = false)]
+	[TestCase(true, (ushort)10, "key", " ", ExpectedResult = false)]
 
-	[TestCase(true, 0, "key", "key", ExpectedResult = false)]
-	[TestCase(true, -10, "key", "key", ExpectedResult = false)]
-	public bool AmbientWeatherSettings_IsValid(bool isEnabled, int seconds, string apiKey, string applicationKey)
+	[TestCase(true, (ushort)0, "key", "key", ExpectedResult = false)]
+	public bool AmbientWeatherSettings_IsValid(bool isEnabled, ushort seconds, string apiKey, string applicationKey)
 	{
 		var settings = new AmbientWeatherSettings()
 		{
