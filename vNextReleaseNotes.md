@@ -6,6 +6,10 @@
 - [#1] Fetch additional metrics (such as 'Feels Like' temp) from AmbientWeather Network cloud
 	- New sample Grafana Dashboard in repo
 
+## Fixes
+
+- [#1] Decrease overall memory usage
+
 ## Changes
 
 - General dependency version bumps

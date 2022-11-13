@@ -105,6 +105,7 @@ public class Traces
 public class Metrics
 {
 	public bool Enabled { get; set; }
+	public bool EnableDotNetRuntimeDebugMetrics { get; set; }
 }
 
 public class Developer

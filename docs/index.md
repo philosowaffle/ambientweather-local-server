@@ -10,6 +10,7 @@ A self-hosted server for receiving metrics directly from the AmbientWeather Cons
 
 * Stays local on your network
 * Exposes AmbientWeather Console data as Prometheus metrics
+* Optionally enriches additional data from [AmbientWeather Network cloud]({{ site.baseurl }}{% link metrics.md %})
 
 Head on over to the [Install]({{ site.baseurl }}{% link install/index.md %}) page to get started!
 

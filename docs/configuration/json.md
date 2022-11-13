@@ -11,7 +11,51 @@ The config file is organized into the below sections.
 
 | Section      | Platforms | Description       |
 |:-------------|:----------|:------------------|
+| [AmbientWeather Config](#ambientweather-config) | All | This section provides settings related to the AmbientWeather Network and scraping data from the cloud. |
 | [Observability Config](#observability-config) | All | This section provides settings related to Metrics, Logs, and Traces for monitoring purposes. |
+
+## AmbientWeather Config
+
+AmbientWeather Local Server can also enrich additional data from the AmbientWeather Network. Some data is only calculated on the AmbientWeather cloud server and is not published by the local Console. To get this information, you need to enable enrichment in this section.
+
+```json
+"AmbientWeather": {
+  "EnrichFromAmbientWeatherNetwork": true,
+  "UserApiKey": "<your api key>",
+  "ApplicationKey": "<your application key>",
+  "PollingFrequencySeconds": 60
+}
+```
+
+| Field      | Required | Default | Description |
+|:-----------|:---------|:--------|:------------|
+| EnrichFromAmbientWeatherNetwork | no | `false` | Whether or not to scrape the cloud and enrich additional metrics. [Learn more]({{ site.baseurl }}{% link metrics.md %}). |
+| UserApiKey | yes (if enrichment is enabled) | `null` | Your AmbientWeather [User API key](#user-api-key). |
+| ApplicationKey | yes (if enrichment is enabled) | `null` | Your AmbientWeather [Application key](#application-key). |
+| PollingFrequencySeconds | no | `60` | How frequently, in seconds, to scrape data from the AmbientWeather Network. |
+
+### User Api Key
+
+You will have to generate a new Api key (also referred to as a Device Key) for AmbientWeather Local Server to use.  To generate this key:
+
+1. [Login to your AmbientWeather.net account settings](https://ambientweather.net/account)
+1. Near the bottom of your `Account Settings` page, look for the `API Keys` section
+1. Click `Create API Key`
+1. Give your new a key a friendly name in the `Label` column and save
+1. This will be your User API Key
+
+### Application Key
+
+You will have to generate a new Application key for AmbientWeather Local Server to use.  To generate this key:
+
+1. [Login to your AmbientWeather.net account settings](https://ambientweather.net/account)
+1. Near the bottom of your `Account Settings` page, look for the `API Keys` section
+1. Near the bottom of this section, look for 
+  > Developers: An Application Key is also required for each application that you develop. Click here to create one.
+1. Click on the link in that message
+1. Type anything in the provided text box, then click `Create Application Key`
+1. Give your new a key a friendly name in the `Label` column and save
+1. This will be your Application Key
 
 ## Observability Config
 
