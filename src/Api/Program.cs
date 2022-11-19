@@ -137,7 +137,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 var githubService = app.Services.GetService<IGitHubReleaseCheckService>();
-var latestVersionInformation = await githubService!.GetLatestReleaseInformationAsync("philosowaffle", "ambientweather-local-server", "0.0.1");
+var latestVersionInformation = await githubService!.GetLatestReleaseInformationAsync("philosowaffle", "ambientweather-local-server", Constants.AppVersion);
 if (latestVersionInformation.IsReleaseNewerThanInstalledVersion)
 {
 	Log.Information("*********************************************");
