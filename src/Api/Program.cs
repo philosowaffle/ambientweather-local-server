@@ -6,6 +6,7 @@ using Core.MetricsHandlers;
 using Core.MetricsHandlers.PrometheusMetrics;
 using Core.Settings;
 using Microsoft.Extensions.Caching.Memory;
+using Philosowaffle.Capability.ReleaseChecks;
 using Prometheus;
 using Serilog;
 using Serilog.Enrichers.Span;
@@ -73,9 +74,8 @@ builder.Services.AddSingleton<IApiClient, Core.AmbientWeatherNetwork.ApiClient>(
 // CACHE
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
-// GITHUB
-builder.Services.AddSingleton<IGitHubApiClient, Core.GitHub.ApiClient>();
-builder.Services.AddSingleton<IGitHubService, GitHubService>();
+// RELEASE CHECKS
+builder.Services.AddGitHubReleaseChecker();
 
 // HANDLERS
 builder.Services.AddTransient<IMetricsHandler, PrometheusHandler>();
@@ -136,10 +136,8 @@ if (config.Observability.Metrics.Enabled)
 app.UseAuthorization();
 app.MapControllers();
 
-var githubService = app.Services.GetService<IGitHubService>();
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-var latestVersionInformation = await githubService.GetLatestReleaseAsync();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+var githubService = app.Services.GetService<IGitHubReleaseCheckService>();
+var latestVersionInformation = await githubService!.GetLatestReleaseInformationAsync("philosowaffle", "ambientweather-local-server", "0.0.1");
 if (latestVersionInformation.IsReleaseNewerThanInstalledVersion)
 {
 	Log.Information("*********************************************");

@@ -14,3 +14,4 @@
 
 - General dependency version bumps
 - Docs updated
+- [#14] Use shared library for release checks
