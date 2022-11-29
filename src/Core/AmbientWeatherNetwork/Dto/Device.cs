@@ -17,7 +17,7 @@ public record Device : IAmbientWeatherMetrics
                      if (DateTime.TryParse(dateUtc, out dateResult))
 			 DateUtc = dateResult;
 		     else
-			 DateUtc = DateTime.Now;
+			 DateUtc = DateTime.UtcNow;
 		}
 
 		WindDir = windDir;
