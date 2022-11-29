@@ -3,9 +3,9 @@
 
 ## Features
 
-- [#18] Add metrics for Barometric Pressure and DateUtc
+- [#18] Add metrics for Barometric Pressure and DateUtc - @agspoon 
 
 ## Fixes
 
-- [#18] Fix DateUtc conversion
-- [#18] Fix spelling error on Humidity metric
+- [#18] Fix DateUtc conversion - @agspoon
+- [#18] Fix spelling error on Humidity metric - @agspoon
