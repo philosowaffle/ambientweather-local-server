@@ -3,15 +3,9 @@
 
 ## Features
 
-- [#1] Fetch additional metrics (such as 'Feels Like' temp) from AmbientWeather Network cloud
-	- New sample Grafana Dashboard in repo
+- [#18] Add metrics for Barometric Pressure and DateUtc
 
 ## Fixes
 
-- [#1] Decrease overall memory usage
-
-## Changes
-
-- General dependency version bumps
-- Docs updated
-- [#14] Use shared library for release checks
+- [#18] Fix DateUtc conversion
+- [#18] Fix spelling error on Humidity metric
