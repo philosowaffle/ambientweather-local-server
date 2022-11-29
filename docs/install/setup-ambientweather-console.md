@@ -15,8 +15,8 @@ First step is to update your AmbientWeather Console firmware to the latest versi
 
 [Firmware update instructions](https://ambientweather.com/faqs/question/view/id/1415/)
 
-| Model | Min Firmware Version |
-|:------|----------------------|
+|  Model  | Min Firmware Version |
+|:--------|----------------------|
 | WS-2000 | 1.7.6 |
 
 ## 2. Console Wifi Firmware
@@ -25,9 +25,10 @@ Additionally, the AmbientWeather Console has Wifi firmware that should be update
 
 [Wifi Firmware update instructions](https://ambientweather.com/faqs/question/view/id/1449/)
 
-| Model | Min Wifi Firmware Version |
-|:------|---------------------------|
-| WS-2000 | 4.3.2 |
+|  Model   | Min Wifi Firmware Version |
+|:---------|---------------------------|
+| WS-2000  | 4.3.2 |
+| WS-2902A | 4.3.4 |
 
 ## 3. Configure Custom Server
 

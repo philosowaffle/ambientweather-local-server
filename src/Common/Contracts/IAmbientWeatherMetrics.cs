@@ -19,6 +19,9 @@ public interface IAmbientWeatherMetrics
 	/// This can also be the mac address
 	/// </summary>
 	public string? PassKey { get; init; }
+	/// <summary>
+	/// UTC Date and Time of last update
+	/// </summary>
 	public DateTime? DateUtc { get; init; }
 	/// <summary>
 	/// 0-360º instantaneous wind direction
