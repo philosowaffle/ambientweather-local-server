@@ -11,7 +11,7 @@ public static class AmbientWeatherPrometheusMetrics
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
 	});
 
-	public static readonly Gauge Humidity = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_humiditiy_percent", "Gauge of Humidity Percentage", new GaugeConfiguration()
+	public static readonly Gauge Humidity = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_humidity_percent", "Gauge of Humidity Percentage", new GaugeConfiguration()
 	{
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
 	});
@@ -52,6 +52,21 @@ public static class AmbientWeatherPrometheusMetrics
 	});
 
 	public static readonly Gauge DewPoint = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_dewpoint_f", "Gauge of Dew Point Temperature in Fahrenheit", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+
+	public static readonly Gauge BaromRelIn = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_baromrelin", "Gauge of Relative Barometric Pressure in in-Hg", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+
+	public static readonly Gauge BaromAbsIn = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_baromabsin", "Gauge of Absolute Barometric Pressure in in-Hg", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+
+	public static readonly Gauge DateUtc = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_dateutc", "Gauge of Date and Time UTC", new GaugeConfiguration()
 	{
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
 	});

@@ -19,6 +19,8 @@ public class PrometheusHandler : IMetricsHandler
 		ProcessUVIndex(metrics);
 		ProcessWindDirection(metrics);
 		ProcessWindSpeed(metrics);
+		ProcessPressure(metrics);
+		ProcessDateUTC(metrics);
 
 		return Task.CompletedTask;
 	}
@@ -602,6 +604,38 @@ public class PrometheusHandler : IMetricsHandler
 				.DewPoint
 				.WithLabels("sensor_10", metrics)
 				.Set(metrics.DewPoint10.Value);
+		}
+	}
+
+	public void ProcessPressure(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.BaromRelIn.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.BaromRelIn
+				.WithLabels("baromrelin", metrics)
+				.Set(metrics.BaromRelIn.Value);
+		}
+
+		if (metrics.BaromAbsIn.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.BaromAbsIn
+				.WithLabels("baromabsin", metrics)
+				.Set(metrics.BaromAbsIn.Value);
+		}
+	}
+
+	public void ProcessDateUTC(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.DateUtc.HasValue)
+		{
+			// Write UTC timestamp as UNIX time in milliseconds, as that's how Grafana wants it.
+			DateTimeOffset DateUtcOff = new DateTimeOffset(DateTime.SpecifyKind(metrics.DateUtc.Value, DateTimeKind.Utc));
+			AmbientWeatherPrometheusMetrics
+				.DateUtc
+				.WithLabels("dateutc", metrics)
+				.Set(DateUtcOff.ToUnixTimeMilliseconds());
 		}
 	}
 
