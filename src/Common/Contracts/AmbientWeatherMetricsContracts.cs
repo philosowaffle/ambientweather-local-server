@@ -7,7 +7,7 @@ public record AmbientWeatherMetricsPostRequest : IAmbientWeatherMetrics
 {
 	public Source Source => Source.Local;
 
-	public string? Mac { get; init; }
+	public string? Mac { get; set; }
 	public string? StationType { get; init; }
 	public string? PassKey { get; init; }
 	public DateTime? DateUtc { get; init; }

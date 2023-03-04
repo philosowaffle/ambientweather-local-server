@@ -52,6 +52,9 @@ public class AWNBackgroundCollector : BackgroundService
 						foreach (var device in deviceData)
 						{
 							if (device is null || device.LastData is null) continue;
+							var data = device.LastData;
+							if (string.IsNullOrWhiteSpace(data.Mac) && string.IsNullOrWhiteSpace(data.PassKey))
+								data.Mac = device.MacAddress;
 							foreach (var handler in _metricsHandlers)
 								tasks.Add(handler.ProcessAsync(device.LastData));
 						}
