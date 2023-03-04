@@ -9,7 +9,7 @@ public interface IAmbientWeatherMetrics
 	/// <summary>
 	/// Mac Address of the weather console
 	/// </summary>
-	public string? Mac { get; init; }
+	public string? Mac { get; set; }
 
 	/// <summary>
 	/// AmbientWeather System Type

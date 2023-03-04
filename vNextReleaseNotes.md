@@ -9,3 +9,4 @@
 
 - [#18] Fix DateUtc conversion - @agspoon
 - [#18] Fix spelling error on Humidity metric - @agspoon
+- [#23] Fix where enriching metrics from Cloud could cause "none" label instead of MAC address
