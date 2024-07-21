@@ -21,6 +21,7 @@ public class PrometheusHandler : IMetricsHandler
 		ProcessWindSpeed(metrics);
 		ProcessPressure(metrics);
 		ProcessDateUTC(metrics);
+  		ProcessSoilMoist(metrics);
 
 		return Task.CompletedTask;
 	}
@@ -625,6 +626,78 @@ public class PrometheusHandler : IMetricsHandler
 				.Set(metrics.BaromAbsIn.Value);
 		}
 	}
+public void ProcessSoilMoist(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.SoilHum1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum1", metrics)
+				.Set(metrics.SoilHum1.Value);
+		}
+		if (metrics.SoilHum2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum2", metrics)
+				.Set(metrics.SoilHum2.Value);
+		}
+  		if (metrics.SoilHum3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum3", metrics)
+				.Set(metrics.SoilHum3.Value);
+		}
+  		if (metrics.SoilHum1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum4", metrics)
+				.Set(metrics.SoilHum4.Value);
+		}
+  		if (metrics.SoilHum5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum5", metrics)
+				.Set(metrics.SoilHum5.Value);
+		}
+  		if (metrics.SoilHum6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum6", metrics)
+				.Set(metrics.SoilHum6.Value);
+		}
+  		if (metrics.SoilHum7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum7", metrics)
+				.Set(metrics.SoilHum7.Value);
+		}
+  		if (metrics.SoilHum8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum8", metrics)
+				.Set(metrics.SoilHum8.Value);
+		}		if (metrics.SoilHum9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum9", metrics)
+				.Set(metrics.SoilHum9.Value);
+		}
+  		if (metrics.SoilHum10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum10", metrics)
+				.Set(metrics.SoilHum10.Value);
+		}
+   }
 
 	public void ProcessDateUTC(IAmbientWeatherMetrics metrics)
 	{

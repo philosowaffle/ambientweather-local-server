@@ -66,6 +66,11 @@ public static class AmbientWeatherPrometheusMetrics
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
 	});
 
+	public static readonly Gauge SoilHum = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_soilhum", "Gauge of Soil Moisture in %", new GaugeConfiguration()
+	{
+		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
+	});
+	
 	public static readonly Gauge DateUtc = Prometheus.Metrics.CreateGauge($"{Statics.MetricPrefix}_dateutc", "Gauge of Date and Time UTC", new GaugeConfiguration()
 	{
 		LabelNames = new[] { "type", "macAddress", "stationType", "source" }
