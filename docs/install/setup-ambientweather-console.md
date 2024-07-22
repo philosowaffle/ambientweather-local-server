@@ -34,7 +34,7 @@ Additionally, the AmbientWeather Console has Wifi firmware that should be update
 
 1. On your AmbientWeather Console find where you can configure a custom server
     1. IP Address will be the IP Address of your locally running `ambientweather-local-server`
-    1. Port will be the port of your locally running `ambientweather-local-server`
+    1. Port will be the port of your locally running `ambientweather-local-server` ex. 8080 by default
     1. Path should be: `/api/ambientweather/metrics?`
         1. The question mark at the end is required
 1. Save your settings
