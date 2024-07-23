@@ -21,6 +21,7 @@ public class PrometheusHandler : IMetricsHandler
 		ProcessWindSpeed(metrics);
 		ProcessPressure(metrics);
 		ProcessDateUTC(metrics);
+  		ProcessSoilMoist(metrics);
 
 		return Task.CompletedTask;
 	}
@@ -41,6 +42,87 @@ public class PrometheusHandler : IMetricsHandler
 				.Humidity
 				.WithLabels("indoor", metrics)
 				.Set(metrics.HumidityIn.Value);
+		}
+
+
+		if (metrics.Humidity1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum01", metrics)
+				.Set(metrics.Humidity1.Value);
+		}
+
+		if (metrics.Humidity2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum02", metrics)
+				.Set(metrics.Humidity2.Value);
+		}
+
+		if (metrics.Humidity3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum03", metrics)
+				.Set(metrics.Humidity3.Value);
+		}
+
+		if (metrics.Humidity4.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum04", metrics)
+				.Set(metrics.Humidity4.Value);
+		}
+
+		if (metrics.Humidity5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum05", metrics)
+				.Set(metrics.Humidity5.Value);
+		}
+
+		if (metrics.Humidity6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum06", metrics)
+				.Set(metrics.Humidity6.Value);
+		}
+
+		if (metrics.Humidity7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum07", metrics)
+				.Set(metrics.Humidity7.Value);
+		}
+
+		if (metrics.Humidity8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum08", metrics)
+				.Set(metrics.Humidity8.Value);
+		}
+
+		if (metrics.Humidity9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum09", metrics)
+				.Set(metrics.Humidity9.Value);
+		}
+
+		if (metrics.Humidity10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum10", metrics)
+				.Set(metrics.Humidity10.Value);
 		}
 	}
 
@@ -625,6 +707,78 @@ public class PrometheusHandler : IMetricsHandler
 				.Set(metrics.BaromAbsIn.Value);
 		}
 	}
+public void ProcessSoilMoist(IAmbientWeatherMetrics metrics)
+	{
+		if (metrics.SoilHum1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum1", metrics)
+				.Set(metrics.SoilHum1.Value);
+		}
+		if (metrics.SoilHum2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum2", metrics)
+				.Set(metrics.SoilHum2.Value);
+		}
+  		if (metrics.SoilHum3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum3", metrics)
+				.Set(metrics.SoilHum3.Value);
+		}
+  		if (metrics.SoilHum1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum4", metrics)
+				.Set(metrics.SoilHum4.Value);
+		}
+  		if (metrics.SoilHum5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum5", metrics)
+				.Set(metrics.SoilHum5.Value);
+		}
+  		if (metrics.SoilHum6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum6", metrics)
+				.Set(metrics.SoilHum6.Value);
+		}
+  		if (metrics.SoilHum7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum7", metrics)
+				.Set(metrics.SoilHum7.Value);
+		}
+  		if (metrics.SoilHum8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum8", metrics)
+				.Set(metrics.SoilHum8.Value);
+		}		if (metrics.SoilHum9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum9", metrics)
+				.Set(metrics.SoilHum9.Value);
+		}
+  		if (metrics.SoilHum10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.SoilHum
+				.WithLabels("soilhum10", metrics)
+				.Set(metrics.SoilHum10.Value);
+		}
+   }
 
 	public void ProcessDateUTC(IAmbientWeatherMetrics metrics)
 	{
