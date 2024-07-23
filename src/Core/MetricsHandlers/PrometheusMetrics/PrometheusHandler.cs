@@ -43,6 +43,87 @@ public class PrometheusHandler : IMetricsHandler
 				.WithLabels("indoor", metrics)
 				.Set(metrics.HumidityIn.Value);
 		}
+
+
+		if (metrics.Humidity1.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum01", metrics)
+				.Set(metrics.Humidity1.Value);
+		}
+
+		if (metrics.Humidity2.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum02", metrics)
+				.Set(metrics.Humidity2.Value);
+		}
+
+		if (metrics.Humidity3.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum03", metrics)
+				.Set(metrics.Humidity3.Value);
+		}
+
+		if (metrics.Humidity4.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum04", metrics)
+				.Set(metrics.Humidity4.Value);
+		}
+
+		if (metrics.Humidity5.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum05", metrics)
+				.Set(metrics.Humidity5.Value);
+		}
+
+		if (metrics.Humidity6.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum06", metrics)
+				.Set(metrics.Humidity6.Value);
+		}
+
+		if (metrics.Humidity7.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum07", metrics)
+				.Set(metrics.Humidity7.Value);
+		}
+
+		if (metrics.Humidity8.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum08", metrics)
+				.Set(metrics.Humidity8.Value);
+		}
+
+		if (metrics.Humidity9.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum09", metrics)
+				.Set(metrics.Humidity9.Value);
+		}
+
+		if (metrics.Humidity10.HasValue)
+		{
+			AmbientWeatherPrometheusMetrics
+				.Humidity
+				.WithLabels("hum10", metrics)
+				.Set(metrics.Humidity10.Value);
+		}
 	}
 
 	public void ProcessLowBattery(IAmbientWeatherMetrics metrics)
